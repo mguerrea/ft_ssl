@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 13:31:15 by mguerrea          #+#    #+#              #
-#    Updated: 2020/07/10 14:36:10 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/07/10 16:58:50 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,16 +38,17 @@ SRC = $(addprefix $(SRC_DIR)/,$(C_FILES))
 OBJ = $(addprefix $(OBJ_DIR)/,$(O_FILES))
 INC = $(addprefix $(INC_DIR)/,$(H_FILES))
 
-FT_INC_DIR = libft/includes
+FT_INC_DIR = libft/includes ft_printf/includes
 INC_FLAGS = $(addprefix -I ,$(INC_DIR) $(INC_SUB_DIRS) $(FT_INC_DIR))
 
 all: $(NAME)
 
 libftmake:
 	@make -C ./libft --no-print-directory
+	@make -C ./ft_printf
 
 $(NAME): $(OBJ_DIR) $(OBJ) | libftmake
-	@$(CC) -o $@ $(OBJ) $(LIB_FLAGS) $(LIBS)
+	@$(CC) -o $@ $(OBJ) $(LIB_FLAGS) $(LIBS) ft_printf/libftprintf.a
 	@echo "\n$(BLU)[$(NAME)]$(GRN) Compilation success$(RESET)"
 
 $(OBJ_DIR):
@@ -61,12 +62,14 @@ clean:
 	@/bin/rm -rf $(OBJ)
 	@/bin/rm -rf $(OBJ_DIR)
 	@make -C ./libft clean --no-print-directory
+	@make -C ./ft_printf clean --no-print-directory
 	@echo "$(BLU)[$(NAME)]$(RED) .o files deleted$()$(RESET)"
 
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f $(LINKNAME)
 	@make -C ./libft fclean --no-print-directory
+	@make -C ./ft_printf fclean --no-print-directory
 	@echo  "$(BLU)[$(NAME)]$(RED) executable file deleted$(RESET)"
 
 re: fclean $(NAME)

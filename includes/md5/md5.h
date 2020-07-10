@@ -6,11 +6,12 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:39:53 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/10 16:28:21 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/10 18:06:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_printf.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -35,7 +36,6 @@ typedef enum e_opt
 void md5_transform(uint32_t state[4], unsigned char block[64]);
 void md5_encode(unsigned char *output, uint32_t *input, unsigned int len);
 void md5_decode(uint32_t *output, unsigned char *input, unsigned int len);
-void md5_string (char *string);
 void md5_final (unsigned char digest[16], t_ctx *context);
 void md5_update(t_ctx *context, unsigned char *input, unsigned int inputLen);
 void md5_init(t_ctx *context);
@@ -46,3 +46,5 @@ uint32_t md5_G(uint32_t x, uint32_t y, uint32_t z);
 uint32_t md5_H(uint32_t x, uint32_t y, uint32_t z);
 uint32_t md5_I(uint32_t x, uint32_t y, uint32_t z);
 void error_file(char *file);
+void md5_print(char *format, char *str, unsigned char digest[16], t_opt opt);
+
