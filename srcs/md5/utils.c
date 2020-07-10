@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   md5_utils.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:45:03 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/08 17:39:45 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:42:26 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void md5_decode(uint32_t *output, unsigned char *input, unsigned int len)
     i = 0;
     while (j < len)
     {
-        output[i] = ((UINT4)input[j]) | (((UINT4)input[j+1]) << 8) |
-   (((UINT4)input[j+2]) << 16) | (((UINT4)input[j+3]) << 24);
+        output[i] = ((uint32_t)input[j]) | (((uint32_t)input[j+1]) << 8) |
+   (((uint32_t)input[j+2]) << 16) | (((uint32_t)input[j+3]) << 24);
         i++;
         j += 4;
     }

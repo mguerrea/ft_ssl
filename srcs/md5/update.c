@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   md5_update.c                                       :+:      :+:    :+:   */
+/*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:01:38 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/08 17:37:31 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:41:47 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void md5_update(t_ctx *context, unsigned char *input, unsigned int inputLen)
     index = (unsigned int)((context->count[0] >> 3) & 0x3F);
 
     /* Update number of bits */
-    if ((context->count[0] += ((UINT4)inputLen << 3)) < ((UINT4)inputLen << 3))
+    if ((context->count[0] += ((uint32_t)inputLen << 3)) < ((uint32_t)inputLen << 3))
         context->count[1]++;
-    context->count[1] += ((UINT4)inputLen >> 29);
+    context->count[1] += ((uint32_t)inputLen >> 29);
 
     partLen = 64 - index;
 

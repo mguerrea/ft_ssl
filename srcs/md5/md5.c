@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:34:00 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/10 14:34:22 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:29:12 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,26 @@ void md5_string (char *string)
 void md5_file(char *file)
 {
     int fd;
+    unsigned char buff[1024];
+    t_ctx context;
+    unsigned char digest[16];
+  unsigned int len;
 
     if ((fd = open(file, O_RDONLY)) == -1)
-      return ;
+      error_file(file);
+    else
+    {
+      md5_init(&context);
+      while ((len = read(fd, buff, 1024)) > 0)
+        md5_update(&context, buff, len);
+      md5_final(digest, &context);
+      close(fd);
+      printf ("MD5 (%s) = ", file);
+  for (int i = 0; i < 16; i++)
+    printf ("%02x", digest[i]);
+  printf ("\n");
+    }
+    
 }
 
 void md5_input()
