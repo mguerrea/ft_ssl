@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:31:47 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 17:20:20 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/11 18:24:37 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 #include <fcntl.h>
 
 enum {
-    SHA1_Message_Block_Size = 64, SHA224_Message_Block_Size = 64,
-    SHA256_Message_Block_Size = 64, SHA384_Message_Block_Size = 128,
-    SHA512_Message_Block_Size = 128,
-    USHA_Max_Message_Block_Size = SHA512_Message_Block_Size,
+    SHA1_block_Size = 64, SHA224_block_Size = 64,
+    SHA256_block_Size = 64, SHA384_block_Size = 128,
+    SHA512_block_Size = 128,
+    USHA_Max_block_Size = SHA512_block_Size,
 
     SHA1HashSize = 20, SHA224HashSize = 28, SHA256HashSize = 32,
     SHA384HashSize = 48, SHA512HashSize = 64,
@@ -37,12 +37,11 @@ enum {
 typedef struct s_sha_ctx {
     uint32_t state[SHA256HashSize/4]; /* Message Digest */
     uint64_t bitlen;
-    int_least16_t index;  /* Message_Block array index */
+    int_least16_t index;  /* block array index */
                                         /* 512-bit message blocks */
-    uint8_t Message_Block[SHA256_Message_Block_Size];
+    uint8_t block[SHA256_block_Size];
 
-    int Computed;                       /* Is the digest computed? */
-    int Corrupted;                      /* Is the digest corrupted? */
+    int computed;                       /* Is the digest computed? */
 } t_sha_ctx;
 
 enum {
@@ -60,10 +59,13 @@ typedef enum e_opt
     INPUT = 1 << 2
 }           t_opt;
 
-int SHA256Input(t_sha_ctx *context, const uint8_t *message_array,
+void sha256_update(t_sha_ctx *context, const uint8_t *message_array,
     unsigned int length);
 int SHA224_256ResultN(t_sha_ctx *context,
     uint8_t Message_Digest[], int HashSize);
 void sha256_transform(t_sha_ctx *context);
+uint32_t sigma(uint32_t x, int n);
+uint32_t sha_ch(uint32_t x, uint32_t y, uint32_t z);
+uint32_t sha_maj(uint32_t x, uint32_t y, uint32_t z);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:35:25 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 17:20:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/11 18:21:52 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void    sha256_init(t_sha_ctx *context)
 {
   context->index  = 0;
   context->bitlen = 0;
-
   context->state[0] = 0x6a09e667;
   context->state[1] = 0xbb67ae85;
   context->state[2] = 0x3c6ef372;
@@ -27,9 +26,7 @@ void    sha256_init(t_sha_ctx *context)
   context->state[5] = 0x9b05688c;
   context->state[6] = 0x1f83d9ab;
   context->state[7] = 0x5be0cd19;
-
-  context->Computed  = 0;
-  context->Corrupted = 0;
+  context->computed  = 0;
 }
 
 void	sha256_string(char *string, t_opt opt)
@@ -43,7 +40,7 @@ void	sha256_string(char *string, t_opt opt)
     i = 0;
 	len = ft_strlen(string);
 	sha256_init(&context);
-    SHA256Input(&context, (unsigned char *)string, len);
+    sha256_update(&context, (unsigned char *)string, len);
     SHA224_256ResultN(&context, digest, SHA256HashSize);
     while (i < 32)
 	{
@@ -70,7 +67,7 @@ void    sha256_file(char *file)
 	{
 		sha256_init(&context);
 		while ((len = read(fd, buff, 1024)) > 0)
-			SHA256Input(&context, buff, len);
+			sha256_update(&context, buff, len);
 		SHA224_256ResultN(&context, digest, SHA256HashSize);
 		close(fd);
         while (i < 32)

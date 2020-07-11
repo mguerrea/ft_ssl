@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:52:46 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 17:20:10 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/11 18:24:37 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@ static void SHA224_256PadMessage(t_sha_ctx *ctx,
     uint8_t Pad_Byte)
 {
     ctx->bitlen += ctx->index * 8;
-  if (ctx->index >= (SHA256_Message_Block_Size-8)) {
-    ctx->Message_Block[ctx->index++] = Pad_Byte;
-    while (ctx->index < SHA256_Message_Block_Size)
-      ctx->Message_Block[ctx->index++] = 0;
+  if (ctx->index >= (SHA256_block_Size-8)) {
+    ctx->block[ctx->index++] = Pad_Byte;
+    while (ctx->index < SHA256_block_Size)
+      ctx->block[ctx->index++] = 0;
     sha256_transform(ctx);
   } else
-    ctx->Message_Block[ctx->index++] = Pad_Byte;
+    ctx->block[ctx->index++] = Pad_Byte;
 
-  while (ctx->index < (SHA256_Message_Block_Size-8))
-    ctx->Message_Block[ctx->index++] = 0;
+  while (ctx->index < (SHA256_block_Size-8))
+    ctx->block[ctx->index++] = 0;
 
-  ctx->Message_Block[56] = (uint8_t)(ctx->bitlen >> 56);
-  ctx->Message_Block[57] = (uint8_t)(ctx->bitlen >> 48);
-  ctx->Message_Block[58] = (uint8_t)(ctx->bitlen >> 40);
-  ctx->Message_Block[59] = (uint8_t)(ctx->bitlen >> 32);
-  ctx->Message_Block[60] = (uint8_t)(ctx->bitlen >> 24);
-  ctx->Message_Block[61] = (uint8_t)(ctx->bitlen >> 16);
-  ctx->Message_Block[62] = (uint8_t)(ctx->bitlen >> 8);
-  ctx->Message_Block[63] = (uint8_t)(ctx->bitlen);
+  ctx->block[56] = (uint8_t)(ctx->bitlen >> 56);
+  ctx->block[57] = (uint8_t)(ctx->bitlen >> 48);
+  ctx->block[58] = (uint8_t)(ctx->bitlen >> 40);
+  ctx->block[59] = (uint8_t)(ctx->bitlen >> 32);
+  ctx->block[60] = (uint8_t)(ctx->bitlen >> 24);
+  ctx->block[61] = (uint8_t)(ctx->bitlen >> 16);
+  ctx->block[62] = (uint8_t)(ctx->bitlen >> 8);
+  ctx->block[63] = (uint8_t)(ctx->bitlen);
 
   sha256_transform(ctx);
 }
@@ -44,43 +44,27 @@ static void SHA224_256Finalize(t_sha_ctx *ctx,
     uint8_t Pad_Byte)
 {
   SHA224_256PadMessage(ctx, Pad_Byte);
-  ft_bzero(ctx->Message_Block, SHA256_Message_Block_Size);
+  ft_bzero(ctx->block, SHA256_block_Size);
   ctx->bitlen = 0;
-  ctx->Computed = 1;
+  ctx->computed = 1;
 }
 
-int SHA256Input(t_sha_ctx *ctx, const uint8_t *message_array,
+void sha256_update(t_sha_ctx *ctx, const uint8_t *to_hash,
     unsigned int length)
 {
-  if (!length)
-    return shaSuccess;
+  while (length--) 
+  {
+    ctx->block[ctx->index++] =
+            (*to_hash & 0xFF);
 
-  if (!ctx || !message_array)
-    return shaNull;
-
-  if (ctx->Computed) {
-    ctx->Corrupted = shaStateError;
-    return shaStateError;
-    }
-
-  if (ctx->Corrupted)
-     return ctx->Corrupted;
-
-  while (length-- && !ctx->Corrupted) {
-    ctx->Message_Block[ctx->index++] =
-            (*message_array & 0xFF);
-
-    if (ctx->index == SHA256_Message_Block_Size)
+    if (ctx->index == SHA256_block_Size)
       {
           ctx->bitlen += 512;
       sha256_transform(ctx);
       }
 
-    message_array++;
+    to_hash++;
   }
-
-  return shaSuccess;
-
 }
 
 int SHA224_256ResultN(t_sha_ctx *ctx,
@@ -88,13 +72,7 @@ int SHA224_256ResultN(t_sha_ctx *ctx,
 {
   int i;
 
-  if (!ctx || !Message_Digest)
-    return shaNull;
-
-  if (ctx->Corrupted)
-    return ctx->Corrupted;
-
-  if (!ctx->Computed)
+  if (!ctx->computed)
     SHA224_256Finalize(ctx, 0x80);
 
   for (i = 0; i < HashSize; ++i)
