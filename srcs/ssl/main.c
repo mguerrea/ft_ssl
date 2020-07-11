@@ -6,12 +6,11 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:14:36 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 13:04:13 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:12:23 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "md5.h"
 #include "ssl.h"
 
 int		usage(void)

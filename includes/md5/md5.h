@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:39:53 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 13:01:56 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:12:33 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void md5_decode(uint32_t *output, unsigned char *input, unsigned int len);
 void md5_final (unsigned char digest[16], t_ctx *context);
 void md5_update(t_ctx *context, unsigned char *input, uint32_t inputLen);
 void md5_init(t_ctx *context);
-int ft_md5 (int argc, char **argv);
 void md5_op(uint32_t *a, uint32_t to_add, uint32_t s, uint32_t b);
 uint32_t md5_f(uint32_t x, uint32_t y, uint32_t z);
 uint32_t md5_g(uint32_t x, uint32_t y, uint32_t z);
