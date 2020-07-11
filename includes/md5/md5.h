@@ -6,9 +6,12 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:39:53 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/10 18:06:15 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/11 13:01:56 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef md5_H
+# define md5_H
 
 #include "libft.h"
 #include "ft_printf.h"
@@ -37,14 +40,15 @@ void md5_transform(uint32_t state[4], unsigned char block[64]);
 void md5_encode(unsigned char *output, uint32_t *input, unsigned int len);
 void md5_decode(uint32_t *output, unsigned char *input, unsigned int len);
 void md5_final (unsigned char digest[16], t_ctx *context);
-void md5_update(t_ctx *context, unsigned char *input, unsigned int inputLen);
+void md5_update(t_ctx *context, unsigned char *input, uint32_t inputLen);
 void md5_init(t_ctx *context);
-void md5_dispatch (int argc, char **argv);
+int ft_md5 (int argc, char **argv);
 void md5_op(uint32_t *a, uint32_t to_add, uint32_t s, uint32_t b);
-uint32_t md5_F(uint32_t x, uint32_t y, uint32_t z);
-uint32_t md5_G(uint32_t x, uint32_t y, uint32_t z);
-uint32_t md5_H(uint32_t x, uint32_t y, uint32_t z);
-uint32_t md5_I(uint32_t x, uint32_t y, uint32_t z);
+uint32_t md5_f(uint32_t x, uint32_t y, uint32_t z);
+uint32_t md5_g(uint32_t x, uint32_t y, uint32_t z);
+uint32_t md5_h(uint32_t x, uint32_t y, uint32_t z);
+uint32_t md5_i(uint32_t x, uint32_t y, uint32_t z);
 void error_file(char *file);
 void md5_print(char *format, char *str, unsigned char digest[16], t_opt opt);
 
+#endif

@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ssl.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/10 16:25:50 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/10 16:28:11 by mguerrea         ###   ########.fr       */
+/*   Created: 2020/07/11 11:56:53 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/07/11 12:06:21 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "md5.h"
-#include "libft.h"
+#ifndef SSL_H
+#define SSL_H
 
-void error_file(char *file)
+typedef struct s_cmd
 {
-    ft_putstr_fd(file, 2);
-    ft_putstr_fd(": No such file or directory\n", 2);
-}
+	char *command;
+	int (*algo)(int argc, char **argv);
+} t_cmd;
+
+const t_cmd g_commands[] =
+{
+	{"md5", ft_md5},
+	{NULL, NULL}
+};
+
+#endif
