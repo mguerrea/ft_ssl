@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:31:47 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/12 13:01:58 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/12 13:28:51 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void				sha256_init(t_sha_ctx *context);
 uint32_t			sigma(uint32_t x, int n);
 uint32_t			sha_ch(uint32_t x, uint32_t y, uint32_t z);
 uint32_t			sha_maj(uint32_t x, uint32_t y, uint32_t z);
+void				sha224_init(t_sha_ctx *context);
 
 #endif

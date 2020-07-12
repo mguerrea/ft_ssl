@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 13:31:15 by mguerrea          #+#    #+#              #
-#    Updated: 2020/07/11 15:34:53 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/07/12 13:25:10 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ $(NAME): $(OBJ_DIR) $(OBJ) | libftmake
 	@echo "\n$(BLU)[$(NAME)]$(GRN) Compilation success$(RESET)"
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR) $(OBJ_SUB_DIRS)
+	@mkdir -p $(OBJ_DIR) $(OBJ_SUB_DIRS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
 	$(CC) -c $< -o $@ $(INC_FLAGS) $(C_FLAGS)
