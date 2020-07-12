@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:35:25 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 18:21:52 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/12 12:34:21 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void    sha256_init(t_sha_ctx *context)
   context->state[5] = 0x9b05688c;
   context->state[6] = 0x1f83d9ab;
   context->state[7] = 0x5be0cd19;
-  context->computed  = 0;
 }
 
 void	sha256_string(char *string, t_opt opt)
@@ -34,55 +33,95 @@ void	sha256_string(char *string, t_opt opt)
 	t_sha_ctx			context;
 	 unsigned char	digest[SHA256HashSize];
 	unsigned int	len;
-    int i;
 
-    (void)opt;
-    i = 0;
 	len = ft_strlen(string);
 	sha256_init(&context);
     sha256_update(&context, (unsigned char *)string, len);
-    SHA224_256ResultN(&context, digest, SHA256HashSize);
-    while (i < 32)
-	{
-		ft_printf("%02x", digest[i]);
-		i++;
-	}
-	// md5_update(&context, (unsigned char *)string, len);
-	// md5_final(digest, &context);
-	// md5_print("MD5 (\"%s\") = ", string, digest, opt);
+    sha256_final(&context, digest, SHA256HashSize);
+	digest_print("SHA256 (\"%s\") = ", string, digest, opt);
 }
 
-void    sha256_file(char *file)
+void    sha256_input(t_opt opt)
+{
+    unsigned char	buff[16];
+	t_sha_ctx		context;
+	unsigned char	digest[SHA256HashSize];
+	unsigned int	len;
+	int				i;
+
+	sha256_init(&context);
+	while ((len = read(STDIN_FILENO, buff, 16)) > 0)
+	{
+		i = -1;
+		sha256_update(&context, buff, len);
+		if (opt & INPUT)
+			while (++i < (int)len)
+				ft_putchar(buff[i]);
+	}
+	sha256_final(&context, digest, SHA256HashSize);
+	digest_print("", "", digest, opt);
+}
+
+void    sha256_file(char *file, t_opt opt)
 {
     int				fd;
 	unsigned char	buff[1024];
 	t_sha_ctx			context;
 	unsigned char	digest[32];
 	unsigned int	len;
-    int i = 0;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
-		ft_printf("%s: No such file or directory\n");
+		ft_printf("ft_ssl: sha256: %s: No such file or directory\n");
 	else
 	{
 		sha256_init(&context);
 		while ((len = read(fd, buff, 1024)) > 0)
 			sha256_update(&context, buff, len);
-		SHA224_256ResultN(&context, digest, SHA256HashSize);
+		sha256_final(&context, digest, SHA256HashSize);
 		close(fd);
-        while (i < 32)
+		digest_print("SHA256 (%s) = ", file, digest, opt);
+	}
+}
+
+int		sha256_parse(t_opt *opt, int argc, char **argv)
+{
+	int i;
+
+	i = 2;
+	while (i < argc && argv[i][0] == '-' && ft_strcmp(argv[i - 1], "-s"))
 	{
-		ft_printf("%02x", digest[i]);
+		if (ft_strcmp(argv[i], "-p") == 0)
+			sha256_input(*opt |= INPUT);
+		else if (ft_strcmp(argv[i], "-r") == 0)
+			*opt |= REV;
+		else if (ft_strcmp(argv[i], "-q") == 0)
+			*opt |= QUIET;
+		else if (ft_strcmp(argv[i], "-s") == 0)
+		{
+			if (argv[++i])
+				sha256_string(argv[i], *opt);
+			else
+				ft_putendl_fd("-s: missing argument", 2);
+		}
 		i++;
 	}
-		// md5_print("MD5 (%s) = ", file, digest, opt);
-	}
+	return (i);
 }
 
 int     ft_sha256(int argc, char **argv)
 {
-    (void)argc;
-    sha256_file(argv[2]);
-//    sha256_string(argv[2], 0);
+    int		i;
+	t_opt	opt;
+
+	opt = 0;
+    g_hash_size = 32;
+	i = sha256_parse(&opt, argc, argv);
+	if (i == argc && (argv[i - 1][0] == '-' || i == 2) && !(opt & INPUT))
+		sha256_input(opt);
+	while (i < argc)
+	{
+		sha256_file(argv[i], opt);
+		i++;
+	}
     return (0);
 }

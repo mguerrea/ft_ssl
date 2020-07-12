@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:34:00 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 16:20:56 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/12 12:34:31 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	md5_string(char *string, t_opt opt)
 	md5_init(&context);
 	md5_update(&context, (unsigned char *)string, len);
 	md5_final(digest, &context);
-	md5_print("MD5 (\"%s\") = ", string, digest, opt);
+	digest_print("MD5 (\"%s\") = ", string, digest, opt);
 }
 
 void	md5_file(char *file, t_opt opt)
@@ -35,7 +35,7 @@ void	md5_file(char *file, t_opt opt)
 	unsigned int	len;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
-		ft_printf("%s: No such file or directory\n");
+		ft_printf("ft_ssl: md5: %s: No such file or directory\n");
 	else
 	{
 		md5_init(&context);
@@ -43,7 +43,7 @@ void	md5_file(char *file, t_opt opt)
 			md5_update(&context, buff, len);
 		md5_final(digest, &context);
 		close(fd);
-		md5_print("MD5 (%s) = ", file, digest, opt);
+		digest_print("MD5 (%s) = ", file, digest, opt);
 	}
 }
 
@@ -65,7 +65,7 @@ void	md5_input(t_opt opt)
 				ft_putchar(buff[i]);
 	}
 	md5_final(digest, &context);
-	md5_print("", "", digest, opt);
+	digest_print("", "", digest, opt);
 }
 
 int		md5_parse(t_opt *opt, int argc, char **argv)
@@ -99,8 +99,9 @@ int		ft_md5(int argc, char **argv)
 	t_opt	opt;
 
 	opt = 0;
+	g_hash_size = 16;
 	i = md5_parse(&opt, argc, argv);
-	if (argv[i - 1][0] == '-')
+	if (i == argc && (argv[i - 1][0] == '-' || i == 2) && !(opt & INPUT))
 		md5_input(opt);
 	while (i < argc)
 	{

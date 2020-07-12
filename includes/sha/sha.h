@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:31:47 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 18:24:37 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/12 11:59:29 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include "utils.h"
 
 enum {
     SHA1_block_Size = 64, SHA224_block_Size = 64,
@@ -40,29 +41,11 @@ typedef struct s_sha_ctx {
     int_least16_t index;  /* block array index */
                                         /* 512-bit message blocks */
     uint8_t block[SHA256_block_Size];
-
-    int computed;                       /* Is the digest computed? */
 } t_sha_ctx;
-
-enum {
-    shaSuccess = 0,
-    shaNull,            /* Null pointer parameter */
-    shaInputTooLong,    /* input data too long */
-    shaStateError,      /* called Input after FinalBits or Result */
-    shaBadParam         /* passed a bad parameter */
-};
-
-typedef enum e_opt
-{
-    REV = 1 << 0,
-    QUIET = 1 << 1,
-    INPUT = 1 << 2
-}           t_opt;
 
 void sha256_update(t_sha_ctx *context, const uint8_t *message_array,
     unsigned int length);
-int SHA224_256ResultN(t_sha_ctx *context,
-    uint8_t Message_Digest[], int HashSize);
+void sha256_final(t_sha_ctx *context, uint8_t digest[], int HashSize);
 void sha256_transform(t_sha_ctx *context);
 uint32_t sigma(uint32_t x, int n);
 uint32_t sha_ch(uint32_t x, uint32_t y, uint32_t z);

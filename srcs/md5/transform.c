@@ -6,14 +6,14 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:16:48 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/11 13:00:14 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/12 11:43:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "md5.h"
 
 uint32_t	g_x[16];
-uint32_t	g_k[] = {
+const static uint32_t	g_k[] = {
 	0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 	0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
 	0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be,
