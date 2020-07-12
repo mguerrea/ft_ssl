@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:35:25 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/12 12:34:21 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/12 12:51:55 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,22 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void    sha256_init(t_sha_ctx *context)
-{
-  context->index  = 0;
-  context->bitlen = 0;
-  context->state[0] = 0x6a09e667;
-  context->state[1] = 0xbb67ae85;
-  context->state[2] = 0x3c6ef372;
-  context->state[3] = 0xa54ff53a;
-  context->state[4] = 0x510e527f;
-  context->state[5] = 0x9b05688c;
-  context->state[6] = 0x1f83d9ab;
-  context->state[7] = 0x5be0cd19;
-}
-
 void	sha256_string(char *string, t_opt opt)
 {
-	t_sha_ctx			context;
-	 unsigned char	digest[SHA256HashSize];
+	t_sha_ctx		context;
+	unsigned char	digest[SHA256HashSize];
 	unsigned int	len;
 
 	len = ft_strlen(string);
 	sha256_init(&context);
-    sha256_update(&context, (unsigned char *)string, len);
-    sha256_final(&context, digest, SHA256HashSize);
+	sha256_update(&context, (unsigned char *)string, len);
+	sha256_final(&context, digest, SHA256HashSize);
 	digest_print("SHA256 (\"%s\") = ", string, digest, opt);
 }
 
-void    sha256_input(t_opt opt)
+void	sha256_input(t_opt opt)
 {
-    unsigned char	buff[16];
+	unsigned char	buff[16];
 	t_sha_ctx		context;
 	unsigned char	digest[SHA256HashSize];
 	unsigned int	len;
@@ -62,11 +48,11 @@ void    sha256_input(t_opt opt)
 	digest_print("", "", digest, opt);
 }
 
-void    sha256_file(char *file, t_opt opt)
+void	sha256_file(char *file, t_opt opt)
 {
-    int				fd;
+	int				fd;
 	unsigned char	buff[1024];
-	t_sha_ctx			context;
+	t_sha_ctx		context;
 	unsigned char	digest[32];
 	unsigned int	len;
 
@@ -108,13 +94,13 @@ int		sha256_parse(t_opt *opt, int argc, char **argv)
 	return (i);
 }
 
-int     ft_sha256(int argc, char **argv)
+int		ft_sha256(int argc, char **argv)
 {
-    int		i;
+	int		i;
 	t_opt	opt;
 
 	opt = 0;
-    g_hash_size = 32;
+	g_hash_size = 32;
 	i = sha256_parse(&opt, argc, argv);
 	if (i == argc && (argv[i - 1][0] == '-' || i == 2) && !(opt & INPUT))
 		sha256_input(opt);
@@ -123,5 +109,5 @@ int     ft_sha256(int argc, char **argv)
 		sha256_file(argv[i], opt);
 		i++;
 	}
-    return (0);
+	return (0);
 }
