@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/11 17:51:46 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/14 18:59:13 by mguerrea         ###   ########.fr       */
+/*   Created: 2020/07/14 17:40:52 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/07/14 18:49:41 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "libft.h"
 
-# include <stdint.h>
-
-typedef enum	e_opt
+char	*ft_strndup(const char *src, unsigned int n)
 {
-	REV = 1 << 0,
-	QUIET = 1 << 1,
-	INPUT = 1 << 2
-}				t_opt;
+	unsigned int	i;
+	char			*copy;
+	unsigned int	len;
 
-unsigned int g_hash_size;
-
-uint32_t	rot_l(uint32_t a, int b);
-uint32_t	rot_r(uint32_t a, int b);
-void		digest_print(char *fmt, char *str, unsigned char *dgst, t_opt opt);
-
-#endif
+	if (!src || n == 0)
+		return (NULL);
+	len = ft_strlen(src);
+	len = (n < len) ? n : len;
+	if (!(copy = (char*)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		copy[i] = src[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
+}

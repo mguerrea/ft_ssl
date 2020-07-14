@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:34:00 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/12 12:34:31 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/14 18:24:45 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		md5_parse(t_opt *opt, int argc, char **argv)
 {
 	int i;
 
-	i = 2;
+	i = 1;
 	while (i < argc && argv[i][0] == '-' && ft_strcmp(argv[i - 1], "-s"))
 	{
 		if (ft_strcmp(argv[i], "-p") == 0)
@@ -101,7 +101,7 @@ int		ft_md5(int argc, char **argv)
 	opt = 0;
 	g_hash_size = 16;
 	i = md5_parse(&opt, argc, argv);
-	if (i == argc && (argv[i - 1][0] == '-' || i == 2) && !(opt & INPUT))
+	if (i == argc && (argv[i - 1][0] == '-' || i == 1) && !(opt & INPUT))
 		md5_input(opt);
 	while (i < argc)
 	{

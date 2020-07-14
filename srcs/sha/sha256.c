@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:35:25 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/12 12:51:55 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/14 18:24:36 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		sha256_parse(t_opt *opt, int argc, char **argv)
 {
 	int i;
 
-	i = 2;
+	i = 1;
 	while (i < argc && argv[i][0] == '-' && ft_strcmp(argv[i - 1], "-s"))
 	{
 		if (ft_strcmp(argv[i], "-p") == 0)
@@ -102,7 +102,7 @@ int		ft_sha256(int argc, char **argv)
 	opt = 0;
 	g_hash_size = 32;
 	i = sha256_parse(&opt, argc, argv);
-	if (i == argc && (argv[i - 1][0] == '-' || i == 2) && !(opt & INPUT))
+	if (i == argc && (argv[i - 1][0] == '-' || i == 1) && !(opt & INPUT))
 		sha256_input(opt);
 	while (i < argc)
 	{

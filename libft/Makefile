@@ -87,7 +87,10 @@ SRC_NAME = ft_memset.c \
 		ft_lstlast.c \
 		ft_realloc.c \
 		get_next_line.c \
-		free_tab.c
+		free_tab.c \
+		ft_strndup.c \
+		split_quotes.c \
+		tablen.c
 
 INC_NAME = libft.h
 

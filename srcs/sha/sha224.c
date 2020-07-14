@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 13:15:26 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/12 13:28:15 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/14 18:24:24 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		sha224_parse(t_opt *opt, int argc, char **argv)
 {
 	int i;
 
-	i = 2;
+	i = 1;
 	while (i < argc && argv[i][0] == '-' && ft_strcmp(argv[i - 1], "-s"))
 	{
 		if (ft_strcmp(argv[i], "-p") == 0)
@@ -102,7 +102,7 @@ int		ft_sha224(int argc, char **argv)
 	opt = 0;
 	g_hash_size = 28;
 	i = sha224_parse(&opt, argc, argv);
-	if (i == argc && (argv[i - 1][0] == '-' || i == 2) && !(opt & INPUT))
+	if (i == argc && (argv[i - 1][0] == '-' || i == 1) && !(opt & INPUT))
 		sha224_input(opt);
 	while (i < argc)
 	{
