@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 13:31:15 by mguerrea          #+#    #+#              #
-#    Updated: 2020/07/12 13:25:10 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/07/14 20:00:29 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = ft_ssl
 SRC_DIR := ./srcs
 OBJ_DIR := ./obj
 INC_DIR := ./includes
-SUB_DIRS := md5 ssl sha
+SUB_DIRS := md5 ssl sha base64
 
 LIB_FLAGS = -L./libft
 LIBS = -lft

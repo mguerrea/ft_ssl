@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 11:56:53 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/12 13:26:07 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/14 20:00:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ typedef struct	s_cmd
 int				ft_md5 (int argc, char **argv);
 int				ft_sha256 (int argc, char **argv);
 int				ft_sha224(int argc, char **argv);
+int				ft_base64(int argc, char **argv);
 
 const t_cmd g_commands[] =
 {
 	{"md5", ft_md5},
 	{"sha256", ft_sha256},
 	{"sha224", ft_sha224},
+	{"base64", ft_base64},
 	{NULL, NULL}
 };
 
