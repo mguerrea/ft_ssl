@@ -1,5 +1,5 @@
 /ft_ssl
 obj/
-/test
+/test*
 *.a
 /file

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:35:25 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/14 18:24:36 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/16 23:08:28 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	sha256_file(char *file, t_opt opt)
 	unsigned int	len;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
-		ft_printf("ft_ssl: sha256: %s: No such file or directory\n");
+		ft_printf("ft_ssl: sha256: %s: No such file or directory\n", file);
 	else
 	{
 		sha256_init(&context);
