@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 12:19:24 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/16 23:40:51 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/17 00:15:06 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern const char *g_base;
 extern int g_count;
 
-void    convert_chunk(char chunk[4], uint32_t nb, int len)
+static void    convert_chunk(char chunk[4], uint32_t nb, int len)
 {
     int i;
 
