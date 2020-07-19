@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:34:00 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/14 18:24:45 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/19 17:55:16 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	md5_file(char *file, t_opt opt)
 	unsigned char	buff[1024];
 	t_ctx			context;
 	unsigned char	digest[16];
-	unsigned int	len;
+	int	len;
 
-	if ((fd = open(file, O_RDONLY)) == -1)
-		ft_printf("ft_ssl: md5: %s: No such file or directory\n");
+	if ((fd = open(file, O_RDONLY)) == -1 || read(fd, buff, 0) < 0)
+		ft_printf("ft_ssl: md5: %s: No such file or directory\n", file);
 	else
 	{
 		md5_init(&context);

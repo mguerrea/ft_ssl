@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:14:36 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/14 18:53:05 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/19 12:11:30 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void		command_line(void)
 		i = 0;
 		if (!ft_strcmp(line, "exit") || !(arr = split_quotes(line, ' ')))
 			break ;
-		dispatcher(arr);
+		if (*line)
+			dispatcher(arr);
 		ft_strdel(&line);
 		free_tab(arr);
 		ft_printf("ft_ssl> ");

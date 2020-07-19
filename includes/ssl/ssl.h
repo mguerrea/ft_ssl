@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 11:56:53 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/17 18:02:47 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/19 15:50:19 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int				ft_md5 (int argc, char **argv);
 int				ft_sha256 (int argc, char **argv);
 int				ft_sha224(int argc, char **argv);
 int				ft_base64(int argc, char **argv);
-int			ft_des(int argc, char **argv);
+int         ft_des_ecb(int argc, char **argv);
 
 const t_cmd g_commands[] =
 {
@@ -33,7 +33,7 @@ const t_cmd g_commands[] =
 	{"sha256", ft_sha256},
 	{"sha224", ft_sha224},
 	{"base64", ft_base64},
-	{"des", ft_des},
+	{"des-ecb", ft_des_ecb},
 	{NULL, NULL}
 };
 
