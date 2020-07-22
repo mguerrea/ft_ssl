@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/20 18:32:36 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/22 13:49:54 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_des
     uint64_t iv;
     int mode;
     int b64;
+    int last;
 }               t_des;
 
 void key_schedule(uint64_t key_s[17], uint64_t key);
@@ -46,6 +47,8 @@ void    b64_encode(unsigned char *str, unsigned int len, int fd);
 void des_output_b64(uint64_t block, int len, int fd);
 void des_encrypt_ecb(unsigned char buff[8], t_des des, int len);
 void des_decrypt_ecb(unsigned char buff[8], t_des des, int len);
-
+int        des_parse(char **argv, t_des *des);
+void des_remove_padding(uint64_t *block, int *len);
+void hmac_sha256(unsigned char *k, int lk, unsigned char *d, int ld, unsigned char *out, int t);
 
 #endif
