@@ -6,11 +6,12 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 11:52:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/22 13:52:10 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/07/22 16:23:25 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
+#include "sha.h"
 
 int get_key(uint64_t *key, char *str)
 {
@@ -37,15 +38,18 @@ int get_key(uint64_t *key, char *str)
 
 int         get_pass(uint64_t *key, char *pass)
 {
-    // unsigned char out[32];
-    // char *test = "test";
+    t_hmac hmac;
 
     (void)key;
-    (void)pass;
-    // hmac_sha256((unsigned char*)pass, ft_strlen(pass), (unsigned char *)test, ft_strlen(test), out, 32);
-    // for (int i = 0; i < 32; i++)
-    //     ft_printf("%02x", out[i]);
-    // ft_printf("\n");
+    hmac.d = (unsigned char *)pass;
+    hmac.k = (unsigned char *)pass;
+    hmac.ld = ft_strlen(pass);
+    hmac.lk = ft_strlen(pass);
+    hmac.t = 32;
+    hmac_sha256(&hmac);
+    for (int i = 0; i < 32; i++)
+        ft_printf("%02x", hmac.out[i]);
+    ft_printf("\n");
     return (0);
 }
 
