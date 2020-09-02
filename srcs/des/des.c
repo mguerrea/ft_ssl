@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:04:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/22 14:05:09 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/02 13:33:08 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 #include <stdlib.h>
 #include <crypt.h>
 #include "ft_printf.h"
+
+void des_init(t_des *des)
+{
+    des->salted = 0;
+    des->mode = 0;
+    des->key = 0;
+    des->fd[0] = STDIN_FILENO;
+    des->fd[1] = STDOUT_FILENO;
+    des->b64 = 0;
+    des->pass = NULL;
+    ft_bzero(des->salt, 8);
+}
 
 void des_padding(uint64_t *block, uint8_t len)
 {

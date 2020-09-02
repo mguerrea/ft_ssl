@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/22 16:16:13 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/02 13:33:26 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ typedef struct s_des
     int mode;
     int b64;
     int last;
+    int salted;
+    char *pass;
+    unsigned char salt[8];
 }               t_des;
 
 void key_schedule(uint64_t key_s[17], uint64_t key);
@@ -49,5 +52,6 @@ void des_encrypt_ecb(unsigned char buff[8], t_des des, int len);
 void des_decrypt_ecb(unsigned char buff[8], t_des des, int len);
 int        des_parse(char **argv, t_des *des);
 void des_remove_padding(uint64_t *block, int *len);
+void des_init(t_des *des);
 
 #endif

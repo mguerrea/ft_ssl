@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 12:53:29 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/22 13:54:19 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/02 13:33:35 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ int			ft_des_ecb(int argc, char **argv)
     t_des des;
 
     (void)argc;
-    des.mode = 0;
-    des.fd[0] = STDIN_FILENO;
-    des.fd[1] = STDOUT_FILENO;
-    des.b64 = 0;
+    des_init(&des);
     if (des_parse(argv, &des))
         return (0);
     if (des.b64 && des.mode)
