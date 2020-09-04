@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 11:56:53 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/04 23:14:17 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/04 23:26:29 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ const t_cmd g_commands[] =
 	{"base64", ft_base64},
 	{"des-ecb", ft_des_ecb},
 	{"des-cbc", ft_des_cbc},
+	{"des", ft_des_cbc},
 	{NULL, NULL}
 };
 
