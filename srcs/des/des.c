@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:04:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/04 22:15:57 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/04 23:22:34 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void des_init(t_des *des)
     des->b64 = 0;
     des->pass = NULL;
     des->last = 0;
+    des->iv = 0;
     ft_bzero(des->salt, 8);
     des->remainder = ' ';
 }
@@ -61,25 +62,24 @@ void des_remove_padding(uint64_t *block, int *len)
     *len = *len - pad;
 }
 
-void         des_read(t_des des,
-    void	(*func)(unsigned char *, t_des, int))
+void         des_read(t_des *des)
 {
     unsigned char buff[8];
     int ret;
     char c;
 
-    des.last = 0;
-    read(des.fd[0], buff, 1);
-    while ((ret = read(des.fd[0], buff + 1, 7)) > 0)
+    des->last = 0;
+    read(des->fd[0], buff, 1);
+    while ((ret = read(des->fd[0], buff + 1, 7)) > 0)
 	{
-        if (ret == 7 && read(des.fd[0], &c, 1))
+        if (ret == 7 && read(des->fd[0], &c, 1))
         {
-            func(buff, des, 8);
+            des->func(buff, des, 8);
             buff[0] = c;
         }
         else
             break ;
 	}
-    des.last = 1;
-    func(buff, des, ret + 1);
+    des->last = 1;
+    des->func(buff, des, ret + 1);
 }

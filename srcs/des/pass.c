@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 21:24:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/04 22:30:38 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/04 23:09:34 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int get_salt(t_des *des, char *str)
     uint8_t byte;
 
     i = -1;
-    if (ft_strlen(str) != 16)
-        return (ft_printf("Wrong salt size\n"));
-    while (++i < 16)
+    if (ft_strlen(str) < 16)
+        ft_printf("salt is too short, padding with zero bytes to length\n");
+    while (str[++i])
     {
         byte = str[i];
         if (i % 2 == 1)
@@ -38,7 +38,7 @@ int get_salt(t_des *des, char *str)
         else
             return (ft_printf("Non-hex digit in salt\n"));
         des->salt[i / 2] |= byte;
-    }
+    }  
     des->salted = 1;
     return (0);
 }
@@ -110,6 +110,6 @@ int get_pass(t_des *des)
     while (++i < 8)
         des->key = (des->key << 8) | key[i];
     if (des->mode == 1 && des->b64 == 1)
-        des_decrypt_ecb(des->block, *des, 8);
+        des->func(des->block, des, 8);
     return (0);
 }

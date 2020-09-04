@@ -6,14 +6,14 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:04:56 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/04 22:17:28 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/04 23:08:30 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
 
 static int manage_block(t_des des, unsigned char *buff,
-                        void (*func)(unsigned char *, t_des, int))
+                        void (*func)(unsigned char *, t_des *, int))
 {
     unsigned char c;
     int i;
@@ -23,18 +23,17 @@ static int manage_block(t_des des, unsigned char *buff,
     i = 0;
     c = ' ';
     while ((read(des.fd[0], &c, 1)) > 0 && ft_isspace(c));
-    func(buff_des, des, 8);
-    func(buff_des + 8, des, 8);
+    func(buff_des, &des, 8);
+    func(buff_des + 8, &des, 8);
     if (ft_isspace(c))
         des.last = 1;
     else
         buff[i++] = c;
-    func(buff_des + 16, des, 8);
+    func(buff_des + 16, &des, 8);
     return (i);
 }
 
-void des_read_b64(t_des des,
-                  void (*func)(unsigned char *, t_des, int))
+void des_read_b64(t_des *des)
 {
     unsigned char buff[32];
     unsigned char buff_des[24];
@@ -42,22 +41,22 @@ void des_read_b64(t_des des,
     int i;
 
     i = 0;
-    if (des.salted && ft_isspace(des.remainder) == 0)
-        buff[i++] = des.remainder;
-    while ((read(des.fd[0], &c, 1)) > 0)
+    if (des->salted && ft_isspace(des->remainder) == 0)
+        buff[i++] = des->remainder;
+    while ((read(des->fd[0], &c, 1)) > 0)
     {
         if (ft_isspace(c) == 0)
             buff[i++] = c;
         if (i == 32)
-            i = manage_block(des, buff, func);
+            i = manage_block(*des, buff, des->func);
     }
     if (i == 0)
         return;
     b64_decode_buff(buff, i, buff_des);
-    des.last = (i == 12);
-    func(buff_des, des, 8);
-    if (i == 18 && des.last++)
-        func(buff_des + 8, des, 8);
+    des->last = (i == 12);
+    des->func(buff_des, des, 8);
+    if (i == 24 && ++(des->last))
+        des->func(buff_des + 8, des, 8);
 }
 
 static void save_remainder(int *count, unsigned char remain[3], uint64_t block)
