@@ -6,13 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:04:56 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/04 23:08:30 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/04 23:55:49 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
 
-static int manage_block(t_des des, unsigned char *buff,
+static int manage_block(t_des *des, unsigned char *buff,
                         void (*func)(unsigned char *, t_des *, int))
 {
     unsigned char c;
@@ -22,14 +22,14 @@ static int manage_block(t_des des, unsigned char *buff,
     b64_decode_buff(buff, 32, buff_des);
     i = 0;
     c = ' ';
-    while ((read(des.fd[0], &c, 1)) > 0 && ft_isspace(c));
-    func(buff_des, &des, 8);
-    func(buff_des + 8, &des, 8);
+    while ((read(des->fd[0], &c, 1)) > 0 && ft_isspace(c));
+    func(buff_des, des, 8);
+    func(buff_des + 8, des, 8);
     if (ft_isspace(c))
-        des.last = 1;
+        des->last = 1;
     else
         buff[i++] = c;
-    func(buff_des + 16, &des, 8);
+    func(buff_des + 16, des, 8);
     return (i);
 }
 
@@ -48,7 +48,7 @@ void des_read_b64(t_des *des)
         if (ft_isspace(c) == 0)
             buff[i++] = c;
         if (i == 32)
-            i = manage_block(*des, buff, des->func);
+            i = manage_block(des, buff, des->func);
     }
     if (i == 0)
         return;
