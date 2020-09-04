@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:04:56 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/22 14:16:17 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/04 22:17:28 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void des_read_b64(t_des des,
     int i;
 
     i = 0;
-    des.last = 0;
+    if (des.salted && ft_isspace(des.remainder) == 0)
+        buff[i++] = des.remainder;
     while ((read(des.fd[0], &c, 1)) > 0)
     {
         if (ft_isspace(c) == 0)

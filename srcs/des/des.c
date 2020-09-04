@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:04:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/02 13:33:08 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/04 22:15:57 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void des_init(t_des *des)
     des->fd[1] = STDOUT_FILENO;
     des->b64 = 0;
     des->pass = NULL;
+    des->last = 0;
     ft_bzero(des->salt, 8);
+    des->remainder = ' ';
 }
 
 void des_padding(uint64_t *block, uint8_t len)
