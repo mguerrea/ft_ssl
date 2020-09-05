@@ -6,13 +6,12 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 21:24:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 12:01:53 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 12:30:04 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
 #include "sha.h"
-#include <stdio.h>
 
 const char *g_salt = "Salted__";
 
@@ -94,9 +93,7 @@ int read_salt(t_des *des)
     return (0);
 }
 
-#include <stdio.h>
-
-int get_pass(t_des *des)
+int key_from_pass(t_des *des)
 {
     unsigned char key[8];
     int i;
@@ -108,6 +105,10 @@ int get_pass(t_des *des)
         return (1);
     print_salt(des);
     des->salted = 1;
+    if (des->pass == NULL && des->mode == 0)
+        des->pass = getpass("enter des encryption password:");
+    if (des->pass == NULL && des->mode == 1)
+        des->pass = getpass("enter des decryption password:");
     pbkdf2((unsigned char *)des->pass, des->salt, 10000, 64, key);
     while (++i < 8)
         des->key = (des->key << 8) | key[i];

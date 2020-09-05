@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 17:51:46 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/02 13:14:13 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 12:11:53 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define UTILS_H
 
 # include <stdint.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdlib.h>
 
 typedef enum	e_opt
 {

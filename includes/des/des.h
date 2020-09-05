@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/04 23:22:42 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 12:28:47 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <unistd.h>
 
 typedef struct s_des
 {
@@ -56,7 +57,7 @@ void des_decrypt_ecb(unsigned char buff[8], t_des *des, int len);
 int        des_parse(char **argv, t_des *des);
 void des_remove_padding(uint64_t *block, int *len);
 void des_init(t_des *des);
-int get_pass(t_des *des);
+int key_from_pass(t_des *des);
 int get_salt(t_des *des, char *str);
 
 #endif
