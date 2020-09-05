@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 16:13:59 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 17:30:27 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct	s_des
 	unsigned char	salt[8];
 	unsigned char	remainder;
 	unsigned char	block[8];
+	unsigned char	key_stream[24];
+	int				key_len;
 	void			(*func)(unsigned char *, struct s_des *, int);
 }				t_des;
 

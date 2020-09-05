@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 21:24:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 15:49:43 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 17:58:20 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,17 @@ int			read_salt(t_des *des)
 static void	call_pbkdf(t_des *des)
 {
 	t_pbkdf			ctx;
-	unsigned char	key[8];
 	int				i;
 
 	i = -1;
 	ctx.c = 10000;
-	ctx.key = key;
-	ctx.keylen = 64;
+	ctx.key = des->key_stream;
+	ctx.keylen = des->key_len;
 	ctx.pass = (unsigned char *)des->pass;
 	ctx.salt = des->salt;
 	pbkdf2(&ctx);
 	while (++i < 8)
-		des->key = (des->key << 8) | key[i];
+		des->key = (des->key << 8) | des->key_stream[i];
 }
 
 int			key_from_pass(t_des *des)
