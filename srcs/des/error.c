@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/02 12:49:21 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 12:45:51 by mguerrea         ###   ########.fr       */
+/*   Created: 2020/09/05 13:21:22 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/09/05 13:26:56 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-#include <unistd.h>
+#include "des.h"
+#include "libft.h"
 
-void	random_string(unsigned char *str, int len)
+int error_file(char *file)
 {
-	int fd;
-
-	if ((fd = open("/dev/random", O_RDONLY)) < 0)
-		return ;
-	read(fd, str, len);
-	close(fd);
+    ft_putstr_fd("ft_ssl: des: ", 2);
+    ft_putstr_fd(file, 2);
+    ft_putstr_fd(": No such file or directory\n", 2);
+    return (1);
 }

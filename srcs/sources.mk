@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 12:59:25 by mguerrea          #+#    #+#              #
-#    Updated: 2020/09/04 23:58:18 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/09/05 13:26:26 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,6 @@ C_FILES_sha = sha256.c update.c transform.c bit_functions.c init.c sha224.c \
 C_FILES_base64 = base64.c encode.c decode.c decode_buff.c
 
 C_FILES_des = des.c tables.c encrypt.c key_schedule.c permutations.c utils.c \
-	des_ecb.c parsing.c des64.c pass.c des_cbc.c des_cfb.c
+	des_ecb.c parsing.c des64.c pass.c des_cbc.c des_cfb.c error.c
 
 C_FILES += $(foreach SUB_DIR,$(SUB_DIRS),$(addprefix $(SUB_DIR)/,$(C_FILES_$(SUB_DIR))))

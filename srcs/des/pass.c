@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 21:24:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 12:30:04 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 12:44:47 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int get_salt(t_des *des, char *str)
         else
             return (ft_printf("Non-hex digit in salt\n"));
         des->salt[i / 2] |= byte;
-    }  
+    }
     des->salted = 1;
     return (0);
 }
@@ -74,18 +74,19 @@ int read_salt(t_des *des)
     if (des->mode == 1 && des->b64 == 0)
     {
         if (read(des->fd[0], buff, 16) < 16 || ft_memcmp(buff, "Salted__", 8))
-            return(ft_printf("Missing salt\n"));
+            return (ft_printf("Missing salt\n"));
         ft_memcpy(des->salt, buff + 8, 8);
     }
     else if (des->mode == 1 && des->b64 == 1)
     {
         if (read(des->fd[0], buff, 32) < 32)
-            return(ft_printf("Missing salt\n"));
+            return (ft_printf("Missing salt\n"));
         b64_decode_buff(buff, 32, salt);
         if (ft_memcmp(salt, g_salt, 8) != 0)
-            return(ft_printf("Missing salt\n"));
+            return (ft_printf("Missing salt\n"));
         ft_memcpy(des->salt, salt + 8, 8);
-        while ((read(des->fd[0], &(des->remainder), 1)) > 0 && ft_isspace(des->remainder));
+        while ((read(des->fd[0], &(des->remainder), 1)) > 0 && ft_isspace(des->remainder))
+            ;
         if (ft_isspace(des->remainder))
             des->last = 1;
         ft_memcpy(des->block, salt + 16, 8);
@@ -93,12 +94,25 @@ int read_salt(t_des *des)
     return (0);
 }
 
-int key_from_pass(t_des *des)
+static void call_pbkdf(t_des *des)
 {
+    t_pbkdf ctx;
     unsigned char key[8];
     int i;
 
     i = -1;
+    ctx.c = 10000;
+    ctx.key = key;
+    ctx.keylen = 64;
+    ctx.pass = (unsigned char *)des->pass;
+    ctx.salt = des->salt;
+    pbkdf2(&ctx);
+    while (++i < 8)
+        des->key = (des->key << 8) | key[i];
+}
+
+int key_from_pass(t_des *des)
+{
     if (des->salted == 0 && des->mode == 0)
         random_string(des->salt, 8);
     if (read_salt(des) != 0)
@@ -109,9 +123,7 @@ int key_from_pass(t_des *des)
         des->pass = getpass("enter des encryption password:");
     if (des->pass == NULL && des->mode == 1)
         des->pass = getpass("enter des decryption password:");
-    pbkdf2((unsigned char *)des->pass, des->salt, 10000, 64, key);
-    while (++i < 8)
-        des->key = (des->key << 8) | key[i];
+    call_pbkdf(des);
     if (des->mode == 1 && des->b64 == 1)
         des->func(des->block, des, 8);
     return (0);
