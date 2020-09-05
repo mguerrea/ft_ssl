@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 21:36:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/02 12:52:13 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 12:01:40 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,33 @@ static void xor_string(unsigned char *dst, unsigned char *src, int len)
         dst[i] = dst[i]^src[i];
 }
 
-static void iterate(unsigned char *pass, unsigned char *salt, int c, unsigned char *res)
+static void concat_index(unsigned char *concat, unsigned char *salt, uint32_t i)
 {
-    int i;
+    int j;
+
+    j = -1;
+    ft_memcpy(concat, salt, 8);
+    while (++j < 4)
+        concat[8 + j] = (i >> (24 - j * 8)) & 0xFF;
+}
+
+#include <stdio.h>
+
+static void iterate(unsigned char *pass, unsigned char *salt, int c, unsigned char *res, uint32_t i)
+{
+    int j;
     t_hmac hmac;
+    unsigned char concat[12];
 
     ft_bzero(res, 32);
-      i = -1;
+    concat_index(concat, salt, i+1);
+    j = -1;
     hmac.k = pass;
     hmac.lk = ft_strlen((const char *)pass);
-    hmac.d = salt;
-    hmac.ld = 8;
+    hmac.d = concat;
+    hmac.ld = 12;
     hmac.t = 32;
-    while (++i < c)
+    while (++j < c)
     {
         hmac_sha256(&hmac);
         xor_string(res, hmac.out, 32);
@@ -47,8 +61,8 @@ static void iterate(unsigned char *pass, unsigned char *salt, int c, unsigned ch
 
 void pbkdf2(unsigned char *pass, unsigned char *salt, int c, int dkLen, unsigned char *DK)
 {
-    int l;
-    int i;
+    uint32_t l;
+    uint32_t i;
     unsigned char res[32];
     int j;
 
@@ -57,7 +71,7 @@ void pbkdf2(unsigned char *pass, unsigned char *salt, int c, int dkLen, unsigned
     i = -1;
     while (++i < l && j < dkLen / 8)
     {
-        iterate(pass, salt, c, res);
+        iterate(pass, salt, c, res, i);
         while ((++j + 1) % 32 != 0 && j < dkLen / 8)
             DK[j] = res[j % 32];
     }

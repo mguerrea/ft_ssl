@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 21:24:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/04 23:09:34 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 12:01:53 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int read_salt(t_des *des)
     return (0);
 }
 
+#include <stdio.h>
+
 int get_pass(t_des *des)
 {
     unsigned char key[8];
@@ -106,7 +108,7 @@ int get_pass(t_des *des)
         return (1);
     print_salt(des);
     des->salted = 1;
-    pbkdf2((unsigned char *)des->pass, des->salt, 100, 64, key);
+    pbkdf2((unsigned char *)des->pass, des->salt, 10000, 64, key);
     while (++i < 8)
         des->key = (des->key << 8) | key[i];
     if (des->mode == 1 && des->b64 == 1)
