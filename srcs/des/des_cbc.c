@@ -6,53 +6,43 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 22:42:05 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/06 23:48:26 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/07 00:07:37 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
+#include "utils.h"
 
 void	des_encrypt_cbc(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
-	int			i;
 
-	block = 0;
-	i = -1;
-	while (++i < len)
-		block = block << 8 | buff[i];
+	from_buff_to_int(buff, &block, len);
 	if (len < 8)
 		des_padding(&block, 8 - len);
 	block = block ^ des->iv;
 	des_encrypt_block(&block, des->key);
 	des->iv = block;
-	i = -1;
 	if (des->b64)
 		des_output_b64(block, 8, des->fd[1], des);
 	else
-		while (++i < 8)
-			ft_putchar_fd((block >> 8 * (7 - i)) & 0xff, des->fd[1]);
+		print_block(block, des->fd[1]);
 }
 
 void	des_decrypt_cbc(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
 	uint64_t	tmp;
-	int			i;
 
-	block = 0;
-	i = -1;
-	while (++i < len)
-		block = block << 8 | buff[i];
+	from_buff_to_int(buff, &block, len);
 	tmp = block;
 	des_decrypt_block(&block, des->key);
 	block = block ^ des->iv;
 	des->iv = tmp;
-	i = -1;
 	if (des->last)
 		des_remove_padding(&block, &len);
-	while (++i < len)
-		ft_putchar_fd((block >> 8 * (len - 1 - i)) & 0xff, des->fd[1]);
+	while (len--)
+		ft_putchar_fd((block >> 8 * len) & 0xff, des->fd[1]);
 }
 
 int		ft_des_cbc(int argc, char **argv)

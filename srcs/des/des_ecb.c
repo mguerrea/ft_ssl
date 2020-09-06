@@ -6,21 +6,20 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 12:53:29 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/06 23:38:25 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/07 00:16:56 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
+#include "utils.h"
 
 void	des_encrypt_ecb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
 	int			i;
 
-	block = 0;
-	i = -1;
-	while (++i < len)
-		block = block << 8 | buff[i];
+
+	from_buff_to_int(buff, &block, len);
 	if (len < 8)
 		des_padding(&block, 8 - len);
 	des_encrypt_block(&block, des->key);
@@ -28,8 +27,7 @@ void	des_encrypt_ecb(unsigned char buff[8], t_des *des, int len)
 	if (des->b64)
 		des_output_b64(block, 8, des->fd[1], des);
 	else
-		while (++i < 8)
-			ft_putchar_fd((block >> 8 * (7 - i)) & 0xff, des->fd[1]);
+		print_block(block, des->fd[1]);
 }
 
 void	des_decrypt_ecb(unsigned char buff[8], t_des *des, int len)
@@ -37,10 +35,7 @@ void	des_decrypt_ecb(unsigned char buff[8], t_des *des, int len)
 	uint64_t	block;
 	int			i;
 
-	block = 0;
-	i = -1;
-	while (++i < len)
-		block = block << 8 | buff[i];
+	from_buff_to_int(buff, &block, len);
 	des_decrypt_block(&block, des->key);
 	i = -1;
 	if (des->last)

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 17:32:15 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/06 23:49:54 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/07 00:08:29 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	des_decrypt_ede_ecb(unsigned char buff[8], t_des *des, int len)
     des_decrypt_block(&block, des->key);
 	if (des->last)
 		des_remove_padding(&block, &len);
-	print_block(block, des->fd[1]);
+	while (len--)
+		ft_putchar_fd((block >> 8 * len) & 0xff, des->fd[1]);
 }
 
 int		ft_des_ede_ecb(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:04:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/06 23:35:01 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/07 01:14:34 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	des_init(t_des *des)
 	des->last = 0;
 	des->iv = 0;
 	ft_bzero(des->salt, 8);
-	ft_bzero(des->derived, 24);
+	ft_bzero(des->derived, 32);
 	des->key_len = 64;
 	des->remainder = ' ';
 }

@@ -6,21 +6,19 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 23:35:02 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/06 23:37:52 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/07 01:09:13 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
+#include "utils.h"
 
 void	des_encrypt_cfb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
 	int			i;
 
-	block = 0;
-	i = -1;
-	while (++i < 8)
-		block = block << 8 | buff[i];
+	from_buff_to_int(buff, &block, 8);
 	des_encrypt_block(&(des->iv), des->key);
 	block = block ^ des->iv;
 	des->iv = block;
@@ -38,10 +36,7 @@ void	des_decrypt_cfb(unsigned char buff[8], t_des *des, int len)
 	uint64_t	tmp;
 	int			i;
 
-	block = 0;
-	i = -1;
-	while (++i < 8)
-		block = block << 8 | buff[i];
+	from_buff_to_int(buff, &block, 8);
 	tmp = block;
 	des_encrypt_block(&(des->iv), des->key);
 	block = block ^ des->iv;
