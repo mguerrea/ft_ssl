@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:04:56 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 13:00:47 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/06 23:50:23 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	save_remainder(int *count, unsigned char remain[3], uint64_t block)
 	}
 }
 
-void		des_output_b64(uint64_t block, int len, int fd)
+void		des_output_b64(uint64_t block, int len, int fd, t_des *des)
 {
 	static unsigned char	remain[2];
 	static int				count = 0;
@@ -84,22 +84,15 @@ void		des_output_b64(uint64_t block, int len, int fd)
 	int						max_len;
 	int						i;
 
-	i = -1;
 	max_len = (count) ? 9 : 6;
-	while (++i < count)
-		buff[i] = remain[i];
-	i--;
+	if (des->last)
+		max_len = count + len;
+	ft_memcpy(buff, remain, count);
+	i = count - 1;
 	while (++i < max_len)
 		buff[i] = (block >> 8 * (7 - (i - count))) & 0xff;
-	if (len == 8)
-		b64_encode(buff, max_len, fd);
-	else
-	{
-		i--;
-		while (++i < count + 8)
-			buff[i] = (block >> 8 * (7 - (i - count))) & 0xff;
-		b64_encode(buff, count + 8, fd);
+	b64_encode(buff, max_len, fd);
+	if (des->last)
 		ft_putchar_fd('\n', fd);
-	}
 	save_remainder(&count, remain, block);
 }

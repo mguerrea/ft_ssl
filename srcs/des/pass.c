@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 21:24:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 17:58:20 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/06 23:38:51 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void		print_salt(t_des *des)
 	{
 		while (++i < 8)
 			block = (block << 8) | g_salt[i];
-		des_output_b64(block, 8, des->fd[1]);
+		des_output_b64(block, 8, des->fd[1], des);
 		i = -1;
 		while (++i < 8)
 			block = (block << 8) | des->salt[i];
-		des_output_b64(block, 8, des->fd[1]);
+		des_output_b64(block, 8, des->fd[1], des);
 	}
 }
 
@@ -102,13 +102,16 @@ static void	call_pbkdf(t_des *des)
 
 	i = -1;
 	ctx.c = 10000;
-	ctx.key = des->key_stream;
-	ctx.keylen = des->key_len;
+	ctx.key = des->derived;
+	ctx.keylen = des->key_len + 64;
 	ctx.pass = (unsigned char *)des->pass;
 	ctx.salt = des->salt;
 	pbkdf2(&ctx);
 	while (++i < 8)
-		des->key = (des->key << 8) | des->key_stream[i];
+		des->key = (des->key << 8) | des->derived[i];
+	i = -1;
+	while (++i < 8)
+		des->iv = (des->iv << 8) | des->derived[des->key_len / 8 + i];
 }
 
 int			key_from_pass(t_des *des)

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 21:36:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 17:50:15 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/06 22:39:48 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 #include "des.h"
 #include "sha.h"
 
-static void	xor_string(unsigned char *dst, unsigned char *src, int len)
+static void	xor_string(unsigned char *dst, unsigned char *src)
 {
-	int i;
+	uint64_t *lldst;
+	uint64_t *llsrc;
 
-	i = -1;
-	while (++i < len)
-		dst[i] = dst[i] ^ src[i];
+	llsrc = (uint64_t *)src;
+	lldst = (uint64_t *)dst;
+	lldst[0] ^= llsrc[0];
+	lldst[1] ^= llsrc[1];
+	lldst[2] ^= llsrc[2];
+	lldst[3] ^= llsrc[3];
 }
 
 static void	concat_index(unsigned char *concat, unsigned char *salt, uint32_t i)
@@ -51,7 +55,7 @@ static void	iterate(t_pbkdf *ctx, unsigned char *res, uint32_t i)
 	while (++j < ctx->c)
 	{
 		hmac_sha256(&hmac);
-		xor_string(res, hmac.out, 32);
+		xor_string(res, hmac.out);
 		hmac.d = hmac.out;
 		hmac.ld = hmac.t;
 	}

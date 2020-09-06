@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 23:35:02 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 17:16:56 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/06 23:37:52 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	des_encrypt_cfb(unsigned char buff[8], t_des *des, int len)
 	des->iv = block;
 	i = -1;
 	if (des->b64)
-		des_output_b64(block, len, des->fd[1]);
+		des_output_b64(block, len, des->fd[1], des);
 	else
 		while (++i < len)
 			ft_putchar_fd((block >> 8 * (7 - i)) & 0xff, des->fd[1]);

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 17:30:27 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/06 23:37:28 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_des
 	unsigned char	salt[8];
 	unsigned char	remainder;
 	unsigned char	block[8];
-	unsigned char	key_stream[24];
+	unsigned char	derived[32];
 	int				key_len;
 	void			(*func)(unsigned char *, struct s_des *, int);
 }				t_des;
@@ -63,7 +63,7 @@ void			b64_decode_buff(unsigned char *str, unsigned int len,
 	unsigned char *output);
 void			des_read_b64(t_des *des);
 void			b64_encode(unsigned char *str, unsigned int len, int fd);
-void			des_output_b64(uint64_t block, int len, int fd);
+void			des_output_b64(uint64_t block, int len, int fd, t_des *des);
 int				des_parse(char **argv, t_des *des);
 void			des_remove_padding(uint64_t *block, int *len);
 void			des_init(t_des *des);
