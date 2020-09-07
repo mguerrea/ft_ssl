@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 11:52:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 13:38:21 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/07 12:25:25 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,33 @@ int			get_hex(uint64_t *nb, char *str)
 	}
 	while (i++ < 16)
 		*nb = *nb << 4;
+	return (0);
+}
+
+int			get_key(t_des *des, char *str)
+{
+	int i;
+	uint8_t byte;
+
+	if (ft_strlen(str) < (unsigned int)des->key_len / 4)
+		ft_putstr_fd(g_error_size, 2);
+	i = -1;
+	while (str[++i])
+	{
+		byte = str[i];
+		if (i % 2 == 1)
+			des->derived[i / 2] = des->derived[i / 2] << 4;
+		if (byte >= '0' && byte <= '9')
+			byte = byte - '0';
+		else if (byte >= 'a' && byte <= 'f')
+			byte = byte - 'a' + 10;
+		else if (byte >= 'A' && byte <= 'F')
+			byte = byte - 'A' + 10;
+		else
+			return (ft_printf("Non-hex digit in key\n"));
+		des->derived[i / 2] |= byte;
+	}
+	from_buff_to_int(des->derived, &(des->key), 8);
 	return (0);
 }
 
@@ -76,7 +103,7 @@ int			des_parse(char **argv, t_des *des)
 			return (1);
 		if (ft_strcmp(argv[i], "-k") == 0 && argv[i + 1])
 		{
-			if (get_hex(&(des->key), argv[i + 1]) != 0)
+			if (get_key(des, argv[i + 1]) != 0)
 				return (1);
 			key = 1;
 		}

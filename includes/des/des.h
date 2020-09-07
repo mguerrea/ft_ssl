@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/06 23:37:28 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/07 12:21:09 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void			des_decrypt_block(uint64_t *block, uint64_t key);
 ** PARSING & UTILS
 */
 
-int				get_key(uint64_t *key, char *str);
 void			des_padding(uint64_t *block, uint8_t len);
 void			des_read(t_des *des);
 int				des_parse(char **argv, t_des *des);

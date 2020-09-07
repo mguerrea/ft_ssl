@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_ede_cfb.c                                      :+:      :+:    :+:   */
+/*   des_ede_ofb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/07 00:30:22 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 12:40:30 by mguerrea         ###   ########.fr       */
+/*   Created: 2020/09/07 12:00:29 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/09/07 12:40:20 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
 #include "utils.h"
 
-void	des_encrypt_ede_cfb(unsigned char buff[8], t_des *des, int len)
+void	des_encrypt_ede_ofb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
-    uint64_t    k2;
 	int			i;
+    uint64_t    k2;
 
 	from_buff_to_int(buff, &block, 8);
-	from_buff_to_int(des->derived + 8, &k2, 8);
+    from_buff_to_int(des->derived + 8, &k2, 8);
 	des_encrypt_block(&(des->iv), des->key);
     des_decrypt_block(&(des->iv), k2);
     des_encrypt_block(&(des->iv), des->key);
-    block = block ^ des->iv;
-	des->iv = block;
+	block = block ^ des->iv;
 	i = -1;
 	if (des->b64)
 		des_output_b64(block, len, des->fd[1], des);
@@ -34,27 +33,24 @@ void	des_encrypt_ede_cfb(unsigned char buff[8], t_des *des, int len)
 			ft_putchar_fd((block >> 8 * (7 - i)) & 0xff, des->fd[1]);
 }
 
-void	des_decrypt_ede_cfb(unsigned char buff[8], t_des *des, int len)
+void	des_decrypt_ede_ofb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
-	uint64_t	tmp;
-    uint64_t    k2;
 	int			i;
+    uint64_t    k2;
 
 	from_buff_to_int(buff, &block, 8);
-    from_buff_to_int(des->derived + 8, &k2, 8);
-	tmp = block;
+	from_buff_to_int(des->derived + 8, &k2, 8);
 	des_encrypt_block(&(des->iv), des->key);
     des_decrypt_block(&(des->iv), k2);
     des_encrypt_block(&(des->iv), des->key);
 	block = block ^ des->iv;
-	des->iv = tmp;
 	i = -1;
 	while (++i < len)
 		ft_putchar_fd((block >> (56 - 8 * i)) & 0xff, des->fd[1]);
 }
 
-int		ft_des_ede_cfb(int argc, char **argv)
+int		ft_des_ede_ofb(int argc, char **argv)
 {
 	t_des des;
 
@@ -63,7 +59,7 @@ int		ft_des_ede_cfb(int argc, char **argv)
     des.key_len = 128;
 	if (des_parse(argv, &des))
 		return (0);
-	des.func = (des.mode) ? des_decrypt_ede_cfb : des_encrypt_ede_cfb;
+	des.func = (des.mode) ? des_decrypt_ede_ofb : des_encrypt_ede_ofb;
 	if (des.b64 && des.mode)
 		des_read_b64(&des);
 	else
