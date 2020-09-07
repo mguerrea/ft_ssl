@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 21:36:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/06 22:39:48 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/07 23:28:22 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,13 @@ void		pbkdf2(t_pbkdf *ctx)
 	uint32_t		l;
 	uint32_t		i;
 	unsigned char	res[32];
-	int				j;
 
-	j = -1;
 	l = ctx->keylen / HLEN + ((ctx->keylen % HLEN == 0) ? 0 : 1);
 	i = -1;
-	while (++i < l && j < ctx->keylen / 8)
+	while (++i < l && (int)i * 32 < ctx->keylen / 8)
 	{
 		iterate(ctx, res, i);
-		while ((++j + 1) % 32 != 0 && j < ctx->keylen / 8)
-			ctx->key[j] = res[j % 32];
+		ft_memcpy(ctx->key + i * 32, res, ((int)i * 32 + 32 < ctx->keylen / 8)
+			? 32 : ctx->keylen / 8 - i * 32);
 	}
 }
