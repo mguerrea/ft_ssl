@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 17:51:46 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/05 18:05:02 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:12:26 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			digest_print(char *fmt, char *str, unsigned char *dgst,
 	t_opt opt);
 void			pbkdf2(t_pbkdf *ctx);
 void			random_string(unsigned char *str, int len);
-void	print_block(uint64_t block, int fd);
-void	from_buff_to_int(unsigned char *buff, uint64_t *nb, int len);
+void			print_block(uint64_t block, int fd);
+void			from_buff_to_int(unsigned char *buff, uint64_t *nb, int len);
 
 #endif

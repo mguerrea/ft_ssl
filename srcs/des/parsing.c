@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 11:52:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 12:25:25 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:11:19 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int			get_hex(uint64_t *nb, char *str)
 
 int			get_key(t_des *des, char *str)
 {
-	int i;
-	uint8_t byte;
+	int		i;
+	uint8_t	byte;
 
 	if (ft_strlen(str) < (unsigned int)des->key_len / 4)
 		ft_putstr_fd(g_error_size, 2);

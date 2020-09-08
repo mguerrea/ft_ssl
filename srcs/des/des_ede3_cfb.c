@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 23:38:44 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 00:33:47 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:10:16 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 void	des_encrypt_ede3_cfb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
-	uint64_t    k[2];
-    int         i;
+	uint64_t	k[2];
+	int			i;
 
 	from_buff_to_int(des->derived + 8, &(k[0]), 8);
 	from_buff_to_int(des->derived + 16, &(k[1]), 8);
 	from_buff_to_int(buff, &block, 8);
 	des_encrypt_block(&(des->iv), des->key);
-    des_decrypt_block(&(des->iv), k[0]);
-    des_encrypt_block(&(des->iv), k[1]);
-    block = block ^ des->iv;
+	des_decrypt_block(&(des->iv), k[0]);
+	des_encrypt_block(&(des->iv), k[1]);
+	block = block ^ des->iv;
 	des->iv = block;
 	i = -1;
 	if (des->b64)
@@ -39,7 +39,7 @@ void	des_decrypt_ede3_cfb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
 	uint64_t	tmp;
-    uint64_t    k[2];
+	uint64_t	k[2];
 	int			i;
 
 	from_buff_to_int(des->derived + 8, &(k[0]), 8);
@@ -47,8 +47,8 @@ void	des_decrypt_ede3_cfb(unsigned char buff[8], t_des *des, int len)
 	from_buff_to_int(buff, &block, 8);
 	tmp = block;
 	des_encrypt_block(&(des->iv), des->key);
-    des_decrypt_block(&(des->iv), k[0]);
-    des_encrypt_block(&(des->iv), k[1]);
+	des_decrypt_block(&(des->iv), k[0]);
+	des_encrypt_block(&(des->iv), k[1]);
 	block = block ^ des->iv;
 	des->iv = tmp;
 	i = -1;
@@ -62,7 +62,7 @@ int		ft_des_ede3_cfb(int argc, char **argv)
 
 	(void)argc;
 	des_init(&des);
-    des.key_len = 192;
+	des.key_len = 192;
 	if (des_parse(argv, &des))
 		return (0);
 	des.func = (des.mode) ? des_decrypt_ede3_cfb : des_encrypt_ede3_cfb;

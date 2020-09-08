@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 12:00:29 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 12:40:20 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:08:57 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	des_encrypt_ede_ofb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
 	int			i;
-    uint64_t    k2;
+	uint64_t	k2;
 
 	from_buff_to_int(buff, &block, 8);
-    from_buff_to_int(des->derived + 8, &k2, 8);
+	from_buff_to_int(des->derived + 8, &k2, 8);
 	des_encrypt_block(&(des->iv), des->key);
-    des_decrypt_block(&(des->iv), k2);
-    des_encrypt_block(&(des->iv), des->key);
+	des_decrypt_block(&(des->iv), k2);
+	des_encrypt_block(&(des->iv), des->key);
 	block = block ^ des->iv;
 	i = -1;
 	if (des->b64)
@@ -37,13 +37,13 @@ void	des_decrypt_ede_ofb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
 	int			i;
-    uint64_t    k2;
+	uint64_t	k2;
 
 	from_buff_to_int(buff, &block, 8);
 	from_buff_to_int(des->derived + 8, &k2, 8);
 	des_encrypt_block(&(des->iv), des->key);
-    des_decrypt_block(&(des->iv), k2);
-    des_encrypt_block(&(des->iv), des->key);
+	des_decrypt_block(&(des->iv), k2);
+	des_encrypt_block(&(des->iv), des->key);
 	block = block ^ des->iv;
 	i = -1;
 	while (++i < len)
@@ -56,7 +56,7 @@ int		ft_des_ede_ofb(int argc, char **argv)
 
 	(void)argc;
 	des_init(&des);
-    des.key_len = 128;
+	des.key_len = 128;
 	if (des_parse(argv, &des))
 		return (0);
 	des.func = (des.mode) ? des_decrypt_ede_ofb : des_encrypt_ede_ofb;

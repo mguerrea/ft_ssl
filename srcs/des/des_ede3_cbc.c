@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 23:02:01 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 23:28:49 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:09:17 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	des_encrypt_ede3_cbc(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
-	uint64_t    k[2];
+	uint64_t	k[2];
 
 	from_buff_to_int(des->derived + 8, &(k[0]), 8);
 	from_buff_to_int(des->derived + 16, &(k[1]), 8);
@@ -37,16 +37,16 @@ void	des_encrypt_ede3_cbc(unsigned char buff[8], t_des *des, int len)
 void	des_decrypt_ede3_cbc(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
-	uint64_t    k[2];
-	uint64_t    tmp;
+	uint64_t	k[2];
+	uint64_t	tmp;
 
 	from_buff_to_int(buff, &block, len);
 	from_buff_to_int(des->derived + 8, &(k[0]), 8);
 	from_buff_to_int(des->derived + 16, &(k[1]), 8);
 	tmp = block;
 	des_decrypt_block(&block, k[1]);
-    des_encrypt_block(&block, k[0]);
-    des_decrypt_block(&block, des->key);
+	des_encrypt_block(&block, k[0]);
+	des_decrypt_block(&block, des->key);
 	block = block ^ des->iv;
 	des->iv = tmp;
 	if (des->last)

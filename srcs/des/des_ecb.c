@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 12:53:29 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 00:16:56 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:07:24 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	des_encrypt_ecb(unsigned char buff[8], t_des *des, int len)
 {
 	uint64_t	block;
 	int			i;
-
 
 	from_buff_to_int(buff, &block, len);
 	if (len < 8)
