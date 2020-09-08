@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 11:52:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:11:19 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:26:36 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,5 @@ int			des_parse(char **argv, t_des *des)
 		if (ft_strcmp(argv[i], "-p") == 0 && argv[i + 1])
 			des->pass = argv[i + 1];
 	}
-	return (key == 0 ? key_from_pass(des) : 0);
+	return (key == 0 ? key_from_pass(des, des->pass) : 0);
 }

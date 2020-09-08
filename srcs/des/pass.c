@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 21:24:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:04:26 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:26:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static void	call_pbkdf(t_des *des)
 		des->iv = (des->iv << 8) | des->derived[des->key_len / 8 + i];
 }
 
-int			key_from_pass(t_des *des)
+int			key_from_pass(t_des *des, char *pass)
 {
 	if (des->salted == 0 && des->mode == 0)
 		random_string(des->salt, 8);
@@ -128,7 +128,8 @@ int			key_from_pass(t_des *des)
 		des->pass = getpass("enter des decryption password:");
 	call_pbkdf(des);
 	ft_bzero(des->pass, ft_strlen(des->pass));
-	ft_strdel(&(des->pass));
+	if (pass == NULL)
+		ft_strdel(&(des->pass));
 	if (des->mode == 1 && des->b64 == 1)
 		des->func(des->block, des, 8);
 	return (0);

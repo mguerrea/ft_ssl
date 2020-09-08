@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:04:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:16:51 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:33:16 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	des_read(t_des *des)
 	char			c;
 
 	des->last = 0;
+	ft_bzero(buff, 8);
 	read(des->fd[0], buff, 1);
 	while ((ret = read(des->fd[0], buff + 1, 7)) > 0)
 	{

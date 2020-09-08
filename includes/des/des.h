@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 12:21:09 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:26:51 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void			des_output_b64(uint64_t block, int len, int fd, t_des *des);
 int				des_parse(char **argv, t_des *des);
 void			des_remove_padding(uint64_t *block, int *len);
 void			des_init(t_des *des);
-int				key_from_pass(t_des *des);
+int				key_from_pass(t_des *des, char *pass);
 int				get_salt(t_des *des, char *str);
 int				error_file(char *file);
 
