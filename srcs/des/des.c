@@ -6,14 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:04:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 01:14:34 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:16:51 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
 #include <unistd.h>
 #include <stdlib.h>
-#include <crypt.h>
 #include "ft_printf.h"
 
 void	des_init(t_des *des)

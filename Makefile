@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 13:31:15 by mguerrea          #+#    #+#              #
-#    Updated: 2020/09/05 16:27:37 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/09/08 13:16:34 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INC_DIR := ./includes
 SUB_DIRS := md5 ssl sha base64 des
 
 LIB_FLAGS = -L./libft
-LIBS = -lft -lcrypt
+LIBS = -lft
 CC = clang
 C_FLAGS = -Wall -Wextra -Werror
 
