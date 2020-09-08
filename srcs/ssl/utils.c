@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 17:01:08 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/31 17:13:44 by mguerrea         ###   ########.fr       */
+/*   Created: 2020/09/02 12:49:21 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/09/08 13:06:09 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
+#include <unistd.h>
 
-size_t	ft_nbrlen(long long n)
+void	random_string(unsigned char *str, int len)
 {
-	size_t	len;
+	int fd;
 
-	len = 0;
-	if (n == 0)
-		return (1);
-	while (n != 0)
-	{
-		n /= 10;
-		++len;
-	}
-	return (len);
+	if ((fd = open("/dev/random", O_RDONLY)) < 0)
+		return ;
+	read(fd, str, len);
+	close(fd);
 }
 
-size_t	ft_unbrlen(unsigned long long n)
+void	from_buff_to_int(unsigned char *buff, uint64_t *nb, int len)
 {
-	size_t	len;
+	int i;
 
-	len = 0;
-	if (n == 0)
-		return (1);
-	while (n != 0)
-	{
-		n /= 10;
-		++len;
-	}
-	return (len);
+	*nb = 0;
+	i = -1;
+	while (++i < len)
+		*nb = (*nb << 8) | buff[i];
 }

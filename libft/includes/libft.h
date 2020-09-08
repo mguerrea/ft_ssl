@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:16:00 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/14 18:55:03 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/05 16:23:25 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ int					ft_max(int a, int b);
 int					ft_min(int a, int b);
 void				ft_putstr_free(char *str);
 void				ft_putendl_free(char *str);
-int					ft_nbrlen(int nb);
+size_t				ft_nbrlen(long long n);
+size_t				ft_unbrlen(unsigned long long n);
 void				*ft_realloc(void *ptr, size_t o_size, size_t n_size);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);

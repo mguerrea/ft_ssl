@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/10 15:01:24 by gmichaud          #+#    #+#             */
-/*   Updated: 2016/12/01 17:24:28 by gmichaud         ###   ########.fr       */
+/*   Created: 2020/09/05 13:21:22 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/09/05 15:59:57 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "des.h"
 #include "libft.h"
-#include <stdlib.h>
 
-void	ft_strdel(char **as)
+int	error_file(char *file)
 {
-	if (as)
-	{
-		free(*as);
-		*as = NULL;
-	}
+	ft_putstr_fd("ft_ssl: des: ", 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	return (1);
 }

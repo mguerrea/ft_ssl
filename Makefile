@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 13:31:15 by mguerrea          #+#    #+#              #
-#    Updated: 2020/07/14 20:00:29 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/09/05 16:27:37 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,10 @@ NAME = ft_ssl
 SRC_DIR := ./srcs
 OBJ_DIR := ./obj
 INC_DIR := ./includes
-SUB_DIRS := md5 ssl sha base64
+SUB_DIRS := md5 ssl sha base64 des
 
 LIB_FLAGS = -L./libft
-LIBS = -lft
+LIBS = -lft -lcrypt
 CC = clang
 C_FLAGS = -Wall -Wextra -Werror
 
@@ -38,17 +38,16 @@ SRC = $(addprefix $(SRC_DIR)/,$(C_FILES))
 OBJ = $(addprefix $(OBJ_DIR)/,$(O_FILES))
 INC = $(addprefix $(INC_DIR)/,$(H_FILES))
 
-FT_INC_DIR = libft/includes ft_printf/includes
+FT_INC_DIR = libft/includes 
 INC_FLAGS = $(addprefix -I ,$(INC_DIR) $(INC_SUB_DIRS) $(FT_INC_DIR))
 
 all: $(NAME)
 
 libftmake:
 	@make -C ./libft --no-print-directory
-	@make -C ./ft_printf
 
 $(NAME): $(OBJ_DIR) $(OBJ) | libftmake
-	@$(CC) -o $@ $(OBJ) $(LIB_FLAGS) $(LIBS) ft_printf/libftprintf.a
+	@$(CC) -o $@ $(OBJ) $(LIB_FLAGS) $(LIBS) 
 	@echo "\n$(BLU)[$(NAME)]$(GRN) Compilation success$(RESET)"
 
 $(OBJ_DIR):
@@ -62,14 +61,12 @@ clean:
 	@/bin/rm -rf $(OBJ)
 	@/bin/rm -rf $(OBJ_DIR)
 	@make -C ./libft clean --no-print-directory
-	@make -C ./ft_printf clean --no-print-directory
 	@echo "$(BLU)[$(NAME)]$(RED) .o files deleted$()$(RESET)"
 
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f $(LINKNAME)
 	@make -C ./libft fclean --no-print-directory
-	@make -C ./ft_printf fclean --no-print-directory
 	@echo  "$(BLU)[$(NAME)]$(RED) executable file deleted$(RESET)"
 
 re: fclean $(NAME)

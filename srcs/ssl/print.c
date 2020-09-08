@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 11:55:09 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/12 12:45:56 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:06:46 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,15 @@ void	digest_print(char *format, char *str, unsigned char *digest, t_opt opt)
 	else if (opt & REV && !(opt & QUIET))
 		ft_printf(" %s", str);
 	ft_printf("\n");
+}
+
+void	print_block(uint64_t block, int fd)
+{
+	char	buff[8];
+	int		i;
+
+	i = -1;
+	while (++i < 8)
+		buff[i] = (block >> (56 - 8 * i)) & 0xff;
+	write(fd, buff, 8);
 }

@@ -92,6 +92,30 @@ SRC_NAME = ft_memset.c \
 		split_quotes.c \
 		tablen.c
 
+SRC_PRINTF = ft_printf/conv1.c \
+		ft_printf/conv2.c \
+		ft_printf/conv3.c \
+		ft_printf/conv4.c \
+		ft_printf/conv5.c \
+		ft_printf/conv6.c \
+		ft_printf/conv7.c \
+		ft_printf/double_conv.c \
+		ft_printf/fill_tab.c \
+		ft_printf/ft_itoa_base.c \
+		ft_printf/ft_lltoa.c \
+		ft_printf/ft_max.c \
+		ft_printf/ft_printf.c \
+		ft_printf/long_double_conv.c \
+		ft_printf/unsigned_conv.c \
+		ft_printf/signed_conv.c \
+		ft_printf/print_string.c \
+		ft_printf/ft_pow.c \
+		ft_printf/ft_abs.c \
+		ft_printf/parsing_utils.c \
+		ft_printf/ft_endcpy.c
+
+SRC_NAME += $(SRC_PRINTF)
+
 INC_NAME = libft.h
 
 INC_PATH = ./includes
@@ -137,6 +161,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INC)
 	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)/ft_printf
 	@$(CC) $(CFLAGS) $(INC_FLAGS) -o $@ -c $<
 	@echo "\r$(ERASE)$(BLU)[$(NAME)]$(RESET) $@ created\c"
 

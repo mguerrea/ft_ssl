@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:14:36 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/07/18 14:45:08 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:14:24 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 
 int			invalid_command(char *cmd)
 {
-	ft_printf("ft_ssl: Error \'%s\' is an invalid command\n", cmd);
+	ft_printf("ft_ssl: Error: \'%s\' is an invalid command\n", cmd);
 	ft_printf("\nStandard commands:\n");
 	ft_printf("\nMessage Digest commands:\nmd5\nsha256\nsha224\n");
-	ft_printf("\nCipher commands:\n");
+	ft_printf("\nCipher commands:\nbase64\ndes\ndes-ecb\ndes-cbc\ndes-cfb\n");
+	ft_printf("des-ofb\ndes-ede\ndes-ede-ecb\ndes-ede-cbc\ndes-ede-cfb\n");
+	ft_printf("des-ede-ofb\ndes3\ndes-ede3\ndes-ede3-ecb\ndes-ede3-cbc\n");
+	ft_printf("des-ede3-cfb\ndes-ede3-ofb\n");
 	return (1);
 }
 
