@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:30:22 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:08:38 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:52:06 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_des_ede_cfb(int argc, char **argv)
 	t_des des;
 
 	(void)argc;
-	des_init(&des);
+	des_init(&des, des_decrypt_ede_cfb);
 	des.key_len = 128;
 	if (des_parse(argv, &des))
 		return (0);

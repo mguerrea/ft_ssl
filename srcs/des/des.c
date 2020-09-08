@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:04:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:33:16 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:51:06 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "ft_printf.h"
 
-void	des_init(t_des *des)
+void	des_init(t_des *des, void (*func)(unsigned char *, t_des *, int))
 {
 	des->salted = 0;
 	des->mode = 0;
@@ -28,8 +28,10 @@ void	des_init(t_des *des)
 	des->iv = 0;
 	ft_bzero(des->salt, 8);
 	ft_bzero(des->derived, 32);
+	ft_bzero(des->block, 8);
 	des->key_len = 64;
 	des->remainder = ' ';
+	des->func = func;
 }
 
 void	des_padding(uint64_t *block, uint8_t len)

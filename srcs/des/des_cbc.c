@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 22:42:05 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 00:07:37 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:48:02 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		ft_des_cbc(int argc, char **argv)
 	t_des des;
 
 	(void)argc;
-	des_init(&des);
+	des_init(&des, des_decrypt_cbc);
 	if (des_parse(argv, &des))
 		return (0);
 	des.func = (des.mode) ? des_decrypt_cbc : des_encrypt_cbc;

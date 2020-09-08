@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 16:37:11 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 00:26:09 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:54:48 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_des_ofb(int argc, char **argv)
 	t_des des;
 
 	(void)argc;
-	des_init(&des);
+	des_init(&des, des_decrypt_ofb);
 	if (des_parse(argv, &des))
 		return (0);
 	des.func = (des.mode) ? des_decrypt_ofb : des_encrypt_ofb;
