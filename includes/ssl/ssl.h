@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 11:56:53 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 23:55:40 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 12:55:06 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int				ft_des_ede_ofb(int argc, char **argv);
 int				ft_des_ede3_ecb(int argc, char **argv);
 int				ft_des_ede3_cbc(int argc, char **argv);
 int				ft_des_ede3_cfb(int argc, char **argv);
+int				ft_des_ede3_ofb(int argc, char **argv);
 
 const t_cmd g_commands[] =
 {
@@ -58,6 +59,7 @@ const t_cmd g_commands[] =
 	{"des-ede3", ft_des_ede3_ecb},
 	{"des3", ft_des_ede3_cbc},
 	{"des-ede3-cfb", ft_des_ede3_cfb},
+	{"des-ede3-ofb", ft_des_ede3_ofb},
 	{NULL, NULL}
 };
 

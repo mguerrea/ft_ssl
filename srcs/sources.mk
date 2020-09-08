@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 12:59:25 by mguerrea          #+#    #+#              #
-#    Updated: 2020/09/07 23:52:59 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/09/08 12:54:39 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,6 @@ C_FILES_des = des.c tables.c encrypt.c key_schedule.c permutations.c \
 
 C_FILES_des += des_ecb.c des_cbc.c des_cfb.c des_ofb.c \
 	des_ede_ecb.c des_ede_cbc.c des_ede_cfb.c des_ede_ofb.c \
-	des_ede3_ecb.c des_ede3_cbc.c des_ede3_cfb.c
+	des_ede3_ecb.c des_ede3_cbc.c des_ede3_cfb.c des_ede3_ofb.c
 
 C_FILES += $(foreach SUB_DIR,$(SUB_DIRS),$(addprefix $(SUB_DIR)/,$(C_FILES_$(SUB_DIR))))

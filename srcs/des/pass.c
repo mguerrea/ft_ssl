@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 21:24:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/07 12:12:40 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:04:26 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ int			key_from_pass(t_des *des)
 	if (des->pass == NULL && des->mode == 1)
 		des->pass = getpass("enter des decryption password:");
 	call_pbkdf(des);
+	ft_bzero(des->pass, ft_strlen(des->pass));
+	ft_strdel(&(des->pass));
 	if (des->mode == 1 && des->b64 == 1)
 		des->func(des->block, des, 8);
 	return (0);
