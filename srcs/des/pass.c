@@ -120,13 +120,13 @@ int			key_from_pass(t_des *des, char *pass)
 		random_string(des->salt, 8);
 	if (read_salt(des) != 0)
 		return (1);
-	print_salt(des);
 	des->salted = 1;
 	if (des->pass == NULL && des->mode == 0)
 		des->pass = getpass("enter des encryption password:");
 	if (des->pass == NULL && des->mode == 1)
 		des->pass = getpass("enter des decryption password:");
 	call_pbkdf(des);
+	print_salt(des);
 	ft_bzero(des->pass, ft_strlen(des->pass));
 	if (pass == NULL)
 		ft_strdel(&(des->pass));

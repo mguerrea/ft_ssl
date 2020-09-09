@@ -55,11 +55,11 @@ void		b64_encode(unsigned char *str, unsigned int len, int fd)
 {
 	uint32_t		nb;
 	char			chunk[4];
-	unsigned int	i;
+	int				i;
 	int				j;
 
 	i = 0;
-	while (i < len - 2)
+	while (i < (int)len - 2)
 	{
 		nb = (uint32_t)str[i] << 16 | (uint32_t)str[i + 1] << 8
 			| (uint32_t)str[i + 2];

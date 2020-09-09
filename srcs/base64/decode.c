@@ -64,7 +64,7 @@ static void	convert_chunk(unsigned char *clean, int i, int fd)
 	nb = (uint32_t)chunk[0] << 18 | (uint32_t)chunk[1] << 12
 		| (uint32_t)chunk[2] << 6 | (uint32_t)chunk[3];
 	j = -1;
-	while (++j < 4)
+	while (++j < 3)
 		ft_putchar_fd((nb >> (8 * (2 - j))) & 0xff, fd);
 }
 
