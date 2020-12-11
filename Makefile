@@ -15,7 +15,7 @@ NAME = ft_ssl
 SRC_DIR := ./srcs
 OBJ_DIR := ./obj
 INC_DIR := ./includes
-SUB_DIRS := md5 ssl sha base64 des
+SUB_DIRS := md5 ssl sha base64 des rsa
 
 LIB_FLAGS = -L./libft
 LIBS = -lft
