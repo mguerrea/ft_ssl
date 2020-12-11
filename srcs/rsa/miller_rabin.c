@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 11:47:34 by user42            #+#    #+#             */
-/*   Updated: 2020/12/11 14:37:15 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/11 16:03:41 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int miller_rabin(uint64_t n, float p)
         if (miller_witness(d, n, randint64(2, n - 2)) == 0)
             return (0);
         tmp = tmp / 2;
+        ft_printf("+");
     }
     return (1);
 }
