@@ -6,13 +6,14 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 11:52:38 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 12:58:24 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 13:15:48 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rsa.h"
 #include <stdio.h>
 #include "base64.h"
+#include "utils.h"
 
 void format_key(t_rsa_priv key, int fd)
 {
@@ -60,6 +61,8 @@ int ft_genrsa(int argc, char **argv)
         fd = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY);
     else
         fd = 1;
+    if (fd == -1)
+        return (error_file(argv[2], "genrsa"));
     genkey(64, fd);
     return (0);
 }

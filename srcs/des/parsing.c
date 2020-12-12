@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 11:52:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:26:36 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 13:13:59 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ static int	des_parse2(char **argv, t_des *des, int i)
 			return (1);
 	if (ft_strcmp(argv[i], "-o") == 0 && argv[i + 1])
 		if ((des->fd[1] = open(argv[i + 1], 01101, 0666)) == -1)
-			return (error_file(argv[i + 1]));
+			return (error_file(argv[i + 1], "des"));
 	if (ft_strcmp(argv[i], "-i") == 0 && argv[i + 1])
 		if ((des->fd[0] = open(argv[i + 1], O_RDONLY)) == -1)
-			return (error_file(argv[i + 1]));
+			return (error_file(argv[i + 1], "des"));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 12:59:25 by mguerrea          #+#    #+#              #
-#    Updated: 2020/12/11 17:12:15 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/12/12 13:14:30 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ C_FILES_sha = sha256.c update.c transform.c bit_functions.c init.c sha224.c \
 C_FILES_base64 = base64.c encode.c decode.c decode_buff.c
 
 C_FILES_des = des.c tables.c encrypt.c key_schedule.c permutations.c \
-	parsing.c des64.c pass.c error.c
+	parsing.c des64.c pass.c
 
 C_FILES_des += des_ecb.c des_cbc.c des_cfb.c des_ofb.c \
 	des_ede_ecb.c des_ede_cbc.c des_ede_cfb.c des_ede_ofb.c \

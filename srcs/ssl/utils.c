@@ -6,11 +6,12 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 12:49:21 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:06:09 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 13:13:25 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "libft.h"
 #include <unistd.h>
 
 void	random_string(unsigned char *str, int len)
@@ -31,4 +32,14 @@ void	from_buff_to_int(unsigned char *buff, uint64_t *nb, int len)
 	i = -1;
 	while (++i < len)
 		*nb = (*nb << 8) | buff[i];
+}
+
+int	error_file(char *file, char *cmd)
+{
+	ft_putstr_fd("ft_ssl: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	return (1);
 }

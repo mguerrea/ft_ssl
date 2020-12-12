@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:57:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 13:12:40 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ void			des_init(t_des *des,
 	void (*func)(unsigned char *, struct s_des *, int));
 int				key_from_pass(t_des *des, char *pass);
 int				get_salt(t_des *des, char *str);
-int				error_file(char *file);
 
 #endif
