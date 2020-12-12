@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 11:52:38 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/11 18:09:45 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 12:58:24 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,24 @@
 #include <stdio.h>
 #include "base64.h"
 
-void format_key(t_rsa_priv key)
+void format_key(t_rsa_priv key, int fd)
 {
     int size;
     unsigned char buff[3072];
-    int i;
 
-    size = 3;
-    size += asn1_size_int(key.n) + 2;
-    size += asn1_size_int(key.e) + 2;
-    size += asn1_size_int(key.p) + 2;
-    size += asn1_size_int(key.q) + 2;
-    buff[0] = 0x30;
-    buff[1] = size;
-    asn1_encode_int(&(buff[2]), 0);
-    i = 5;
-    asn1_encode_int(&(buff[i]), key.n);
-    i += asn1_size_int(key.n) + 2;
-    asn1_encode_int(&(buff[i]), key.e);
-    i += asn1_size_int(key.e) + 2;
-    asn1_encode_int(&(buff[i]), key.p);
-    i += asn1_size_int(key.p) + 2;
-    asn1_encode_int(&(buff[i]), key.q);
-    i += asn1_size_int(key.q) + 2;
-    for (int j = 0; j < size + 2; j++)
-        ft_printf("%x ", buff[j]);
-    ft_printf("\n");
-    b64_encode(buff, size + 2, 1);
-    ft_printf("\n");
+    size = asn1_size_privkey(key);
+    asn1_encode_privkey(key, buff, size);
+    // for (int j = 0; j < size + 2; j++)
+    //     ft_printf("%x ", buff[j]);
+    // ft_printf("\n");
+    ft_printf("e is %lu (0x0%0x)\n", key.e, key.e);
+    ft_putstr_fd("-----BEGIN RSA PRIVATE KEY-----\n", fd);
+    b64_encode(buff, size + 2, fd);
+    ft_putchar_fd('\n', fd);
+    ft_putstr_fd("-----END RSA PRIVATE KEY-----\n", fd);
 }
 
-void genkey(int size)
+void genkey(int size, int fd)
 {
     t_rsa_priv key;
 
@@ -55,15 +42,24 @@ void genkey(int size)
     ft_printf("\n");
     key.n = key.p*key.q;
     key.e = 65537;
-    ft_printf("p = %lu\nq = %lu\nn = %llu\n", key.p, key.q, key.n);
-    format_key(key);
+    key.d = inv_mod(key.e, (key.p - 1)*(key.q - 1));
+    key.dp = key.d % (key.p - 1);
+    key.dq = key.d % (key.q - 1);
+    key.qinv = inv_mod(key.q, key.p);
+    // ft_printf("p = %lu\nq = %lu\nn = %llu\nd = %lu\n", key.p, key.q, key.n, key.d);
+    format_key(key, fd);
 }
 
 int ft_genrsa(int argc, char **argv)
 {
+    int fd;
     (void)argc;
     (void)argv;
 
-    genkey(64);
+    if (argv[1] && ft_strcmp(argv[1], "-o") == 0 && argv[2])
+        fd = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY);
+    else
+        fd = 1;
+    genkey(64, fd);
     return (0);
 }
