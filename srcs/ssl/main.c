@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:14:36 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:14:24 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 13:52:48 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 int			invalid_command(char *cmd)
 {
 	ft_printf("ft_ssl: Error: \'%s\' is an invalid command\n", cmd);
-	ft_printf("\nStandard commands:\n");
+	ft_printf("\nStandard commands:\ngenrsa\n");
 	ft_printf("\nMessage Digest commands:\nmd5\nsha256\nsha224\n");
 	ft_printf("\nCipher commands:\nbase64\ndes\ndes-ecb\ndes-cbc\ndes-cfb\n");
 	ft_printf("des-ofb\ndes-ede\ndes-ede-ecb\ndes-ede-cbc\ndes-ede-cfb\n");
