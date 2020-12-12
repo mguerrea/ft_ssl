@@ -6,12 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 23:35:02 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:51:47 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 17:28:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "des.h"
 #include "utils.h"
+#include "libft.h"
 
 void	des_encrypt_cfb(unsigned char buff[8], t_des *des, int len)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 13:33:09 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/31 16:26:50 by gmichaud         ###   ########.fr       */
+/*   Updated: 2020/12/12 17:34:29 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,19 @@ typedef struct	s_options
 	t_flags		flags;
 	size_t		field_size;
 	int			precision;
+	int			fd;
 }				t_options;
 
 typedef int		(*t_print_fct)(va_list ap, t_options);
 
-void			print_padding(int len, char c);
+typedef struct s_conv
+{
+	int format;
+	t_print_fct function;
+	
+}			t_conv;
+
+void			print_padding(int len, char c, int fd);
 long long		ft_llabs(long long n);
 double			ft_pow(int x, int y);
 int				conv_int(va_list ap, t_options options);
@@ -78,19 +86,19 @@ int				conv_hhoct(va_list ap, t_options options);
 char			*ft_dtoa(double f, t_options options);
 int				ft_max(int a, int b);
 char			*ft_ldtoa(long double f, t_options options);
-void			fill_print(t_print_fct *print);
-void			fill_type(int *tab_type);
 int				ft_printf(char *format, ...);
 int				print_percent(va_list ap, t_options options);
 double			ft_pow(int x, int y);
 long long		ft_llabs(long long n);
-int				find_conv_function(int type, int *tab_type);
-void			init_formating(t_options *options, int *type);
+int				find_conv_function(int type);
+void			init_formating(t_options *options, int *type, int fd);
 void			parse_digits(t_options *options, const char *format);
 int				conv(t_options *options, int type, char conv_type);
 void			get_flag(t_options *options, const char *flags, char flag_type);
 int				conv_pointer(va_list ap, t_options options);
 int				conv_none(va_list ap, t_options options);
 char			*ft_endcpy(char *dest, char *src, int n);
+int				ft_dprintf(int fd, char *format, ...);
+int				parsing(char *format, va_list ap, int fd);
 
 #endif

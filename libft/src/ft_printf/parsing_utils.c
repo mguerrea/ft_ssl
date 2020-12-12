@@ -6,28 +6,31 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/31 14:12:00 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/31 17:12:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 17:32:06 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
 
-int		find_conv_function(int type, int *tab_type)
+extern const t_conv g_tab_conv[];
+
+int		find_conv_function(int type)
 {
 	int	i;
 
 	i = 0;
-	while (tab_type[i] != type && tab_type[i])
+	while (g_tab_conv[i].format && g_tab_conv[i].format != type)
 		i++;
 	return (i);
 }
 
-void	init_formating(t_options *options, int *type)
+void	init_formating(t_options *options, int *type, int fd)
 {
 	options->flags = 0;
 	options->precision = -1;
 	options->field_size = 0;
+	options->fd = fd;
 	*type = 0;
 }
 

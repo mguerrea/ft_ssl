@@ -99,8 +99,8 @@ SRC_PRINTF = ft_printf/conv1.c \
 		ft_printf/conv5.c \
 		ft_printf/conv6.c \
 		ft_printf/conv7.c \
+		ft_printf/tab_conv.c \
 		ft_printf/double_conv.c \
-		ft_printf/fill_tab.c \
 		ft_printf/ft_itoa_base.c \
 		ft_printf/ft_lltoa.c \
 		ft_printf/ft_max.c \
@@ -112,7 +112,8 @@ SRC_PRINTF = ft_printf/conv1.c \
 		ft_printf/ft_pow.c \
 		ft_printf/ft_abs.c \
 		ft_printf/parsing_utils.c \
-		ft_printf/ft_endcpy.c
+		ft_printf/ft_endcpy.c \
+		ft_printf/ft_dprintf.c
 
 SRC_NAME += $(SRC_PRINTF)
 
