@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 14:22:27 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 17:42:08 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/12 17:54:44 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int read_key(t_rsa_priv *key, t_rsa_opt opt)
     read(opt.fd[0], buff, ft_strlen(header));
     if (ft_strncmp((char *)buff, header, ft_strlen(header)) != 0)
         return (-1);
-    while (!ft_strchr((char *)buff, '=') && (read(opt.fd[0], buff, 4)) >= 0)
+    while (!ft_strchr((char *)buff, '=') && (read(opt.fd[0], buff, 4)) >= 0
+        && ft_strncmp((char *)buff, "----", 4))
     {
         b64_decode_buff(buff, 4, &(buff2[i]));
         i += 3;
