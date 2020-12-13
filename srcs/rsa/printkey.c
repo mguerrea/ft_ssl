@@ -6,39 +6,48 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 16:30:29 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/13 16:55:58 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/13 17:27:52 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rsa.h"
 
-void format_privkey(t_rsa_priv key, int fd)
+void format_privkey(t_rsa_priv key, int fd, int format)
 {
     int size;
     unsigned char buff[3072];
 
     size = asn1_size_privkey(key);
     asn1_encode_privkey(key, buff, size);
-    ft_putstr_fd(PRIV_B, fd);
-    b64_encode(buff, size + 2, fd);
-    ft_putchar_fd('\n', fd);
-    ft_putstr_fd(PRIV_E, fd);
+    if (format == PEM)
+    {
+        ft_putstr_fd(PRIV_B, fd);
+        b64_encode(buff, size + 2, fd);
+        ft_putchar_fd('\n', fd);
+        ft_putstr_fd(PRIV_E, fd);
+    }
+    else
+        write(fd, buff, size + 2);
     ft_memset(&key, 0, sizeof(t_rsa_priv));
 }
 
-void format_pubkey(t_rsa_priv key, int fd)
+void format_pubkey(t_rsa_priv key, int fd, int format)
 {
     int size;
     unsigned char buff[3072];
 
     size = asn1_size_int(key.n) + asn1_size_int(key.e) + 4;
     asn1_encode_pubkey(key, buff, size);
-    ft_putstr_fd(PUB_B, fd);
-    b64_encode(buff, size + 2 + 20, fd);
-    ft_putchar_fd('\n', fd);
-    ft_putstr_fd(PUB_E, fd);
+    if (format == PEM)
+    {
+        ft_putstr_fd(PUB_B, fd);
+        b64_encode(buff, size + 2 + 20, fd);
+        ft_putchar_fd('\n', fd);
+        ft_putstr_fd(PUB_E, fd);
+    }
+    else
+        write(fd, buff, size + 22);
     ft_memset(&key, 0, sizeof(t_rsa_priv));
-
 }
 
 void print_infos(t_rsa_opt opt, t_rsa_priv key)
@@ -61,5 +70,4 @@ void print_infos(t_rsa_opt opt, t_rsa_priv key)
         ft_dprintf(opt.fd[1], "Modulus: %lu (0x%lx)\n", key.n, key.n);
         ft_dprintf(opt.fd[1], "Exponent: %lu (0x%lx)\n", key.e, key.e);
     }
-    
 }

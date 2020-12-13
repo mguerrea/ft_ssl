@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 11:54:50 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/13 16:47:04 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/13 17:26:48 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # define PRIV_E "-----END RSA PRIVATE KEY-----\n"
 # define PUB_B "-----BEGIN PUBLIC KEY-----\n"
 # define PUB_E "-----END PUBLIC KEY-----\n"
+
+# define PEM 0
+# define DER 1
 
 typedef struct s_rsa_priv {
     uint64_t n;
@@ -50,6 +53,7 @@ typedef struct s_rsa_opt {
     int noout;
     int pubin;
     int pubout;
+    int format[2];
 }               t_rsa_opt;
 
 uint64_t randint64(uint64_t min, uint64_t max);
@@ -69,8 +73,8 @@ int asn1_decode_pubkey(t_rsa_priv *key, unsigned char *buff);
 void asn1_encode_pubkey(t_rsa_priv key, unsigned char *buff, int size);
 
 int rsa_parsing(t_rsa_opt *opt, int argc, char **argv);
-void format_privkey(t_rsa_priv key, int fd);
+void format_privkey(t_rsa_priv key, int fd, int format);
 void print_infos(t_rsa_opt opt, t_rsa_priv key);
-void format_pubkey(t_rsa_priv key, int fd);
+void format_pubkey(t_rsa_priv key, int fd, int format);
 
 #endif
