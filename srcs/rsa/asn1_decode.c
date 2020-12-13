@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 14:01:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 16:01:28 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/13 16:34:53 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,18 @@ int asn1_decode_int(unsigned char *buff, uint64_t *n)
 
 int asn1_decode_pubkey(t_rsa_priv *key, unsigned char *buff)
 {
-    (void)key;
-    (void)buff;
+    int i;
+
+
+    if (buff[0] != 0x30)
+        return (ft_printf("invalid offset\n"));
+    if (buff[1] >= 0x80)
+        return (ft_printf("key too long, only 64 bits is supported\n"));
+    i = 2;
+    if (asn1_decode_int(&(buff[i]), &(key->n)) == -1)
+        return (ft_printf("key too long, only 64 bits is supported\n"));
+    i += buff[i + 1] + 2;
+    asn1_decode_int(&(buff[i]), &(key->e));
     return (0);
 }
 

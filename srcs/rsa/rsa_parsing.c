@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 14:29:33 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 17:55:33 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/13 16:31:46 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int rsa_parsing(t_rsa_opt *opt, int argc, char **argv)
             (*opt).text = 1;
         if (ft_strcmp(argv[i], "-noout") == 0)
             (*opt).noout = 1;
+        if (ft_strcmp(argv[i], "-pubout") == 0)
+            (*opt).pubout = 1;
         i++;
     }
     return (0);

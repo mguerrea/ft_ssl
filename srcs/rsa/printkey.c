@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 16:30:29 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 17:38:33 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/13 16:55:58 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,26 @@ void format_privkey(t_rsa_priv key, int fd)
 
     size = asn1_size_privkey(key);
     asn1_encode_privkey(key, buff, size);
-    ft_putstr_fd("-----BEGIN RSA PRIVATE KEY-----\n", fd);
+    ft_putstr_fd(PRIV_B, fd);
     b64_encode(buff, size + 2, fd);
     ft_putchar_fd('\n', fd);
-    ft_putstr_fd("-----END RSA PRIVATE KEY-----\n", fd);
+    ft_putstr_fd(PRIV_E, fd);
     ft_memset(&key, 0, sizeof(t_rsa_priv));
+}
+
+void format_pubkey(t_rsa_priv key, int fd)
+{
+    int size;
+    unsigned char buff[3072];
+
+    size = asn1_size_int(key.n) + asn1_size_int(key.e) + 4;
+    asn1_encode_pubkey(key, buff, size);
+    ft_putstr_fd(PUB_B, fd);
+    b64_encode(buff, size + 2 + 20, fd);
+    ft_putchar_fd('\n', fd);
+    ft_putstr_fd(PUB_E, fd);
+    ft_memset(&key, 0, sizeof(t_rsa_priv));
+
 }
 
 void print_infos(t_rsa_opt opt, t_rsa_priv key)

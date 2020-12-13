@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asn1.c                                             :+:      :+:    :+:   */
+/*   asn1_encode.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 17:11:26 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 12:48:37 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/13 17:03:14 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,25 @@ void asn1_encode_privkey(t_rsa_priv key, unsigned char *buff, int size)
     i += asn1_size_int(key.dq) + 2;
     asn1_encode_int(&(buff[i]), key.qinv);
     i += asn1_size_int(key.qinv) + 2;
+}
+
+void asn1_encode_pubkey(t_rsa_priv key, unsigned char *buff, int size)
+{
+    int i;
+    const unsigned char oid[] = {0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 
+        0x0d, 0x01, 0x01, 0x01, 0x05, 0x00};
+
+    buff[0] = 0x30;
+    buff[1] = size + 20;
+    i = 1;
+    while (++i < 15 + 2)
+        buff[i] = oid[i - 2];
+    buff[17] = 3;
+    buff[18] = size + 3;
+    buff[19] = 0;
+    buff[20] = 0x30;
+    buff[21] = size;
+    asn1_encode_int(&(buff[22]), key.n);
+    i = 22 + asn1_size_int(key.n) + 2;
+    asn1_encode_int(&(buff[i]), key.e);
 }
