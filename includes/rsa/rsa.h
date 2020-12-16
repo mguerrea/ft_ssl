@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 11:54:50 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/13 17:26:48 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 13:37:31 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_rsa_opt {
     int noout;
     int pubin;
     int pubout;
+    int modulus;
     int format[2];
 }               t_rsa_opt;
 

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 14:22:27 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/13 17:35:37 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 13:38:29 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int ft_rsa(int argc, char **argv)
         return (-1);
     if (opt.text == 1)
         print_infos(opt, key);
+    if (opt.modulus == 1)
+        ft_dprintf(opt.fd[1], "Modulus=%lX\n", key.n);
     if (opt.noout != 1)
     {
         ft_dprintf(2, "writing RSA key\n");
