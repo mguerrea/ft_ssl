@@ -6,7 +6,7 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/10 12:59:25 by mguerrea          #+#    #+#              #
-#    Updated: 2020/12/16 14:53:17 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/12/16 18:53:18 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ C_FILES_des += des_ecb.c des_cbc.c des_cfb.c des_ofb.c \
 	des_ede3_ecb.c des_ede3_cbc.c des_ede3_cfb.c des_ede3_ofb.c
 
 C_FILES_rsa = genrsa.c miller_rabin.c randint.c maths.c getprime.c \
-	asn1_encode.c asn1_decode.c rsa.c rsa_parsing.c printkey.c rsa_des.c
+	asn1_encode.c asn1_decode.c rsa.c rsa_parsing.c printkey.c rsa_des.c \
+	rsa_check.c
 
 C_FILES += $(foreach SUB_DIR,$(SUB_DIRS),$(addprefix $(SUB_DIR)/,$(C_FILES_$(SUB_DIR))))
