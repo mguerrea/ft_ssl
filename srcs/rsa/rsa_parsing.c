@@ -6,18 +6,18 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 14:29:33 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/16 13:38:06 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 15:54:59 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rsa.h"
 #include "utils.h"
 
-static void rsa_opt_init(t_rsa_opt *opt)
+void rsa_opt_init(t_rsa_opt *opt)
 {
     (*opt).check = 0;
-    (*opt).fd[0] = 0;
-    (*opt).fd[1] = 1;
+    (*opt).fd[0] = STDIN_FILENO;
+    (*opt).fd[1] = STDOUT_FILENO;
     (*opt).noout = 0;
     (*opt).text = 0;
     (*opt).pubin = 0;
@@ -25,6 +25,9 @@ static void rsa_opt_init(t_rsa_opt *opt)
     (*opt).modulus = 0;
     (*opt).format[0] = PEM;
     (*opt).format[1] = PEM;
+    (*opt).pass[0] = NULL;
+    (*opt).pass[1] = NULL;
+    (*opt).des = 0;
 }
 
 int rsa_parsing(t_rsa_opt *opt, int argc, char **argv)
@@ -57,6 +60,12 @@ int rsa_parsing(t_rsa_opt *opt, int argc, char **argv)
         if (ft_strcmp(argv[i], "-outform") == 0 && argv[i + 1])
             if (ft_strcmp(argv[i + 1], "DER") == 0)
                 (*opt).format[1] = DER;
+        if (ft_strcmp(argv[i], "-passin") == 0 && argv[i + 1])
+            (*opt).pass[0] = argv[i + 1];
+        if (ft_strcmp(argv[i], "-passout") == 0 && argv[i + 1])
+            (*opt).pass[1] = argv[i + 1];
+        if (ft_strcmp(argv[i], "-des") == 0)
+            (*opt).des = 1;
         i++;
     }
     return (0);

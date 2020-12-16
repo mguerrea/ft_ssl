@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 17:51:46 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 13:12:31 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 18:25:48 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,8 @@ void			random_string(unsigned char *str, int len);
 void			print_block(uint64_t block, int fd);
 void			from_buff_to_int(unsigned char *buff, uint64_t *nb, int len);
 int				error_file(char *file, char *cmd);
+void			pbkdf1_md5(t_pbkdf *ctx);
+void			pbkdf1_sha256(t_pbkdf *ctx);
+void			print_hex(unsigned char *str, int len, int fd);
 
 #endif

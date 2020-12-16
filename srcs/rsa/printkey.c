@@ -6,47 +6,49 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 16:30:29 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/13 17:27:52 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 18:34:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rsa.h"
 
-void format_privkey(t_rsa_priv key, int fd, int format)
+void format_privkey(t_rsa_priv key, t_rsa_opt opt)
 {
     int size;
     unsigned char buff[3072];
 
     size = asn1_size_privkey(key);
     asn1_encode_privkey(key, buff, size);
-    if (format == PEM)
+    if (opt.des && opt.format[1] == PEM)
+        encrypt_key(opt, buff, size + 2);
+    else if (opt.format[1] == PEM)
     {
-        ft_putstr_fd(PRIV_B, fd);
-        b64_encode(buff, size + 2, fd);
-        ft_putchar_fd('\n', fd);
-        ft_putstr_fd(PRIV_E, fd);
+        ft_putstr_fd(PRIV_B, opt.fd[1]);
+        b64_encode(buff, size + 2, opt.fd[1]);
+        ft_putchar_fd('\n', opt.fd[1]);
+        ft_putstr_fd(PRIV_E, opt.fd[1]);
     }
     else
-        write(fd, buff, size + 2);
+        write(opt.fd[1], buff, size + 2);
     ft_memset(&key, 0, sizeof(t_rsa_priv));
 }
 
-void format_pubkey(t_rsa_priv key, int fd, int format)
+void format_pubkey(t_rsa_priv key, t_rsa_opt opt)
 {
     int size;
     unsigned char buff[3072];
 
     size = asn1_size_int(key.n) + asn1_size_int(key.e) + 4;
     asn1_encode_pubkey(key, buff, size);
-    if (format == PEM)
+    if (opt.format[1] == PEM)
     {
-        ft_putstr_fd(PUB_B, fd);
-        b64_encode(buff, size + 2 + 20, fd);
-        ft_putchar_fd('\n', fd);
-        ft_putstr_fd(PUB_E, fd);
+        ft_putstr_fd(PUB_B, opt.fd[1]);
+        b64_encode(buff, size + 2 + 20, opt.fd[1]);
+        ft_putchar_fd('\n', opt.fd[1]);
+        ft_putstr_fd(PUB_E, opt.fd[1]);
     }
     else
-        write(fd, buff, size + 22);
+        write(opt.fd[1], buff, size + 22);
     ft_memset(&key, 0, sizeof(t_rsa_priv));
 }
 

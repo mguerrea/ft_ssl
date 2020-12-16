@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 11:55:09 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/09/08 13:06:46 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 17:34:23 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,13 @@ void	print_block(uint64_t block, int fd)
 	while (++i < 8)
 		buff[i] = (block >> (56 - 8 * i)) & 0xff;
 	write(fd, buff, 8);
+}
+
+void	print_hex(unsigned char *str, int len, int fd)
+{
+	int i;
+
+	i = -1;
+	while (++i < len)
+		ft_dprintf(fd, "%02X", str[i]);
 }

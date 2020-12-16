@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 14:22:27 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/16 13:38:29 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 15:21:53 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int ft_rsa(int argc, char **argv)
     {
         ft_dprintf(2, "writing RSA key\n");
         if (opt.pubin == 0 && opt.pubout == 0)
-            format_privkey(key, opt.fd[1], opt.format[1]);
+            format_privkey(key, opt);
         else
-            format_pubkey(key, opt.fd[1], opt.format[1]);
+            format_pubkey(key, opt);
     }
     return (0);
 }

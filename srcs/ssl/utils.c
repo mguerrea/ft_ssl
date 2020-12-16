@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 12:49:21 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 13:13:25 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 14:08:09 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	random_string(unsigned char *str, int len)
 {
 	int fd;
 
-	if ((fd = open("/dev/random", O_RDONLY)) < 0)
+	if ((fd = open("/dev/urandom", O_RDONLY)) < 0)
 		return ;
 	read(fd, str, len);
 	close(fd);

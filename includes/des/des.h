@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 12:26:52 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/12 13:12:40 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 16:29:50 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,9 @@ void			des_init(t_des *des,
 	void (*func)(unsigned char *, struct s_des *, int));
 int				key_from_pass(t_des *des, char *pass);
 int				get_salt(t_des *des, char *str);
+
+void	des_encrypt_cbc(unsigned char buff[8], t_des *des, int len);
+void	des_decrypt_cbc(unsigned char buff[8], t_des *des, int len);
+
 
 #endif

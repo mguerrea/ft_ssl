@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 11:52:38 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/13 17:26:54 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 15:50:00 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "base64.h"
 #include "utils.h"
 
-void genkey(int size, int fd)
+void genkey(int size, t_rsa_opt opt)
 {
     t_rsa_priv key;
 
@@ -31,21 +31,22 @@ void genkey(int size, int fd)
     key.dq = key.d % (key.q - 1);
     key.qinv = inv_mod(key.q, key.p);
     ft_printf("e is %lu (0x0%0x)\n", key.e, key.e);
-    format_privkey(key, fd, PEM);
+    format_privkey(key, opt);
 }
 
 int ft_genrsa(int argc, char **argv)
 {
-    int fd;
+    t_rsa_opt opt;
+
     (void)argc;
     (void)argv;
-
+    rsa_opt_init(&opt);
     if (argv[1] && ft_strcmp(argv[1], "-o") == 0 && argv[2])
-        fd = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY);
+        opt.fd[1] = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY);
     else
-        fd = 1;
-    if (fd == -1)
+        opt.fd[1] = 1;
+    if (opt.fd[1] == -1)
         return (error_file(argv[2], "genrsa"));
-    genkey(64, fd);
+    genkey(64, opt);
     return (0);
 }

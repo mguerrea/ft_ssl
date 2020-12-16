@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 11:54:50 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/12/16 13:37:31 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/12/16 15:50:24 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_rsa_opt {
     int pubout;
     int modulus;
     int format[2];
+    char *pass[2];
+    int des;
 }               t_rsa_opt;
 
 uint64_t randint64(uint64_t min, uint64_t max);
@@ -74,8 +76,10 @@ int asn1_decode_pubkey(t_rsa_priv *key, unsigned char *buff);
 void asn1_encode_pubkey(t_rsa_priv key, unsigned char *buff, int size);
 
 int rsa_parsing(t_rsa_opt *opt, int argc, char **argv);
-void format_privkey(t_rsa_priv key, int fd, int format);
+void format_privkey(t_rsa_priv key, t_rsa_opt opt);
 void print_infos(t_rsa_opt opt, t_rsa_priv key);
-void format_pubkey(t_rsa_priv key, int fd, int format);
+void format_pubkey(t_rsa_priv key, t_rsa_opt opt);
+void encrypt_key(t_rsa_opt opt, unsigned char *buff, int size);
+void rsa_opt_init(t_rsa_opt *opt);
 
 #endif
